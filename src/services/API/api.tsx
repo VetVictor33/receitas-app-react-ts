@@ -41,4 +41,8 @@ export default abstract class Api{
         await axios.post(`/recipes/favorite/${id}`, undefined, { headers:this.headers })
     }
 
+    public static async deleteRecipe(id: number) {
+        await axios.delete(`/recipes/${id}`, {headers: this.headers})
+    }
+
 }

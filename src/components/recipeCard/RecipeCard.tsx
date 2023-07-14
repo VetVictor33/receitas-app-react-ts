@@ -18,6 +18,7 @@ import formatDate from '../../utils/formatDate';
 import FadeMenu from './FadeMenu';
 import Api from '../../services/API/api';
 import useUser from '../../hook/useUser';
+import { getItem } from '../../storage';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -107,10 +108,11 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
             {categoryFirstLetter}
           </Avatar>
         }
-        action={
+        action={ recipe.userName === getItem('username') ?
           <IconButton aria-label="settings">
-            <FadeMenu/>
+            <FadeMenu recipeId={recipe.id}/>
           </IconButton>
+          : ''
         }
         title={recipe.title}
         subheader={date}
@@ -119,11 +121,11 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
         component="img"
         height="194"
         src={`${import.meta.env.VITE_BASE_URL}${recipe.imageUrl}`}
-        alt="Paella dish"
+        alt={recipe.title}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {recipe.ingredients.map(i => <p key={i.id}>{i.name}</p>)}
+          por: {recipe.userName}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
