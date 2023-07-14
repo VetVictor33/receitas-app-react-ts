@@ -9,6 +9,7 @@ import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
 import RecipePage from './pages/RecipePage.tsx';
 import ValidateToken from './components/ValidateToken.tsx';
+import UserProvider from './context/UserContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <UserProvider>
+      <RouterProvider router={router}/>
+    </UserProvider>
   </React.StrictMode>
 )

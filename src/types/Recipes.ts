@@ -26,3 +26,11 @@ export type Recipe = {
   createdAt: Date,
   updatedAt: Date
 }
+
+export interface newRecipeFromForm {
+  categoryName: string,
+  title: string,
+  description: string,
+  ingredients: string,
+  image: File
+}

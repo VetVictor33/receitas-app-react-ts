@@ -3,10 +3,10 @@ import { INVALID_EMAIL, REQUIRED_DATA } from '../../utils/globalErrorMessages';
 import { Button } from '@mui/material';
 import Api from '../../services/API/api';
 import { useNavigate } from 'react-router-dom'
+import useUser from '../../hook/useUser';
 
 
 export default function SignupForm(){
-  const navigateTo = useNavigate()
   return (
     <Formik
       initialValues={{ username: '', email: '', password: '' }}
@@ -31,9 +31,10 @@ export default function SignupForm(){
         try {
           await Api.signupAttempt(values)
           setSubmitting(false)
-          navigateTo('/login')
+          // navigateTo('/')
         } catch (error) {
-          console.log(error.response.data.errors)
+          console.log(error)
+          console.log(error.response.data.errors | error.response.data)
         }
       }}
     >
@@ -49,7 +50,9 @@ export default function SignupForm(){
           <Button variant="contained"
             type='submit'
             disabled={isSubmitting}>
-              Cadastrar</Button>
+              Cadastrar
+          </Button>
+          <a href="/">Já tem conta? Faça login!</a>
         </Form>
       )}
     </Formik>

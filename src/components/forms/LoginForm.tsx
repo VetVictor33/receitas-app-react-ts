@@ -4,10 +4,13 @@ import { Button } from '@mui/material';
 import Api from '../../services/API/api';
 import { useNavigate } from 'react-router-dom'
 import { setItem } from '../../storage';
+import useUser from '../../hook/useUser';
+import { useLocalStorage } from 'react-use';
 
 
 export default function LoginForm(){
   const navigateTo = useNavigate()
+  const {setUser} = useUser()!
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -27,11 +30,14 @@ export default function LoginForm(){
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const {token} = await Api.loginAttempt(values)
+          const {token, user} = await Api.loginAttempt(values)
           setSubmitting(false)
-          setItem('token', token)
+          setItem('token', token.token)
+          setItem('username', user.username)
+          setUser(user)
           navigateTo('/dashboard')
         } catch (error) {
+          console.log(error)
           console.log(error.response.data.errors)
         }
       }}
@@ -46,7 +52,8 @@ export default function LoginForm(){
           <Button variant="contained"
             type='submit'
             disabled={isSubmitting}>
-              Cadastrar</Button>
+              Enviar</Button>
+              <a href="/sign-up">Não tem conta? cadastre-se aqui</a>
         </Form>
       )}
     </Formik>
