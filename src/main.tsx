@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/login',
+        path: '/',
         element: <Login />
       },
       {
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
-        element: <ValidateToken route='/login'/>,
+        element: <ValidateToken route='/'/>,
         children: [
           {
             path: '/dashboard',
