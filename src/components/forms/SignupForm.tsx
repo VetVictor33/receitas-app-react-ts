@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { INVALID_EMAIL, REQUIRED_DATA } from '../../utils/globalErrorMessages';
 import { Button } from '@mui/material';
-import { signupAttempt } from '../../services/API/api';
+import Api from '../../services/API/api';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -29,7 +29,7 @@ export default function SignupForm(){
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          await signupAttempt(values)
+          await Api.signupAttempt(values)
           setSubmitting(false)
           navigateTo('/login')
         } catch (error) {

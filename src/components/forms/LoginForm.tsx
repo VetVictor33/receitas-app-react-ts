@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { INVALID_EMAIL, REQUIRED_DATA } from '../../utils/globalErrorMessages';
 import { Button } from '@mui/material';
-import { loginAttempt, signupAttempt } from '../../services/API/api';
+import Api from '../../services/API/api';
 import { useNavigate } from 'react-router-dom'
 import { setItem } from '../../storage';
 
@@ -27,7 +27,7 @@ export default function LoginForm(){
       }}
       onSubmit={async (values, { setSubmitting }) => {
         try {
-          const {token} = await loginAttempt(values)
+          const {token} = await Api.loginAttempt(values)
           setSubmitting(false)
           setItem('token', token)
           navigateTo('/dashboard')

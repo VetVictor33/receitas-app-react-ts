@@ -1,6 +1,9 @@
-export type UserSignup = {
+export type User = {
   username: string,
   email: string,
+}
+
+export type UserSignup = User & {
   password: string
 }
 
