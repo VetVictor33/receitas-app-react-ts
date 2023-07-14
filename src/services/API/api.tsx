@@ -33,4 +33,12 @@ export default abstract class Api{
         return data
     }
 
+    public static async likeRecipe(id: number) {
+        await axios.post(`/recipes/like/${id}`, undefined, { headers:this.headers })
+    }
+
+    public static async favoriteRecipe(id: number) {
+        await axios.post(`/recipes/favorite/${id}`, undefined, { headers:this.headers })
+    }
+
 }

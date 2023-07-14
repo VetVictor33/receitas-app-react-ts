@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import RecipeFromList from '../components/RecipeFromList'
+import RecipeFromList from '../components/recipeCard/RecipeCard'
 import useUser from '../hook/useUser'
 import Api from '../services/API/api'
-import { destroyItem } from '../storage'
-import RecipeForm from '../components/forms/reficeForms/UseFormControl'
+import RecipeForm from '../components/forms/recipeForm/UseFormControl'
+import { destroyStorage } from '../storage'
 
 export default function Dashboard() {
   const {recipes, setRecipes} = useUser()!
@@ -17,7 +17,7 @@ export default function Dashboard() {
         setRecipes(data)
       } catch (error) {
         console.log(error)
-        // destroyItem('token')
+        // destroyStorage()
       }
     }
     fetchRecipes()

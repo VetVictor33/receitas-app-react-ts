@@ -38,7 +38,7 @@ export default function RecipeForm() {
   const [descriptionError, setDescriptionError] = useState<boolean>(false)
   const [imageError, setImageError] = useState<boolean>(false)
 
-  const anyFeedbackRef = useRef(false)
+  const hasAnyFeedbackRef = useRef(false)
   const [feedBackMessage, setFeedbackMessage] = useState<string>('')
 
 
@@ -49,7 +49,7 @@ export default function RecipeForm() {
     const name = e.target.name
     const value = e.target.value
 
-    anyFeedbackRef.current = false
+    hasAnyFeedbackRef.current = false
     switch (name) {
       case 'title':
           setTitle(value)
@@ -82,30 +82,30 @@ export default function RecipeForm() {
     e.preventDefault()
     if(!title) {
       setTitleError(true)
-      anyFeedbackRef.current = true
+      hasAnyFeedbackRef.current = true
     }
 
     if(!categoryName) {
       setCategoryNameError(true)
-      anyFeedbackRef.current = true
+      hasAnyFeedbackRef.current = true
     }
 
     if(!ingredients) {
       setIngredientsError(true)
-      anyFeedbackRef.current = true
+      hasAnyFeedbackRef.current = true
     }
 
     if(!description) {
       setDescriptionError(true)
-      anyFeedbackRef.current = true
+      hasAnyFeedbackRef.current = true
     }
 
     if(!image || image.type.indexOf('image') < 0) {
       setImageError(true)
-      anyFeedbackRef.current = true
+      hasAnyFeedbackRef.current = true
     }
 
-    if(anyFeedbackRef.current || !image){
+    if(hasAnyFeedbackRef.current || !image){
       setSubmitButtonStyle('error')
       setAlertStyle('warning')
       if(image && image.type.indexOf('image') < 0) {
@@ -120,7 +120,7 @@ export default function RecipeForm() {
       const data = {title, categoryName, description, ingredients, image}
       const newRecipe = await postRescipe(data)
       
-      anyFeedbackRef.current= true
+      hasAnyFeedbackRef.current= true
       setFeedbackMessage('Receita adicionada com sucesso!')
       setAlertStyle('success')
       setSubmitButtonStyle('success')
@@ -130,7 +130,7 @@ export default function RecipeForm() {
     } catch (error) {
       console.log(error)
 
-      anyFeedbackRef.current= true
+      hasAnyFeedbackRef.current= true
       setFeedbackMessage('Algo deu errado')
       setAlertStyle('error')
       setSubmitButtonStyle('error')
@@ -176,7 +176,7 @@ export default function RecipeForm() {
     </FormControl>
 
     <Stack sx={{ width: '100%' }} spacing={2}>
-      {anyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
+      {hasAnyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
       <Button color={submitButtonStyle} type='submit'>Criar</Button>
     </Stack>
 

@@ -19,9 +19,11 @@ export type Recipe = {
   userName: User['username'],
   ingredients: Ingredient[],
   metrics: {
-    likes: likes;
-    favorites: favorites;
-    comments: Comment[]
+    likes: likes,
+    favorites: favorites,
+    comments: Comment[],
+    liked: boolean,
+    favorited: boolean
   }
   createdAt: Date,
   updatedAt: Date
