@@ -100,7 +100,7 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
           {recipe.metrics.comments.length > 0 &&
             recipe.metrics.comments.map(comment => (
               <Comment key={comment.id}
-                recipeUsername={recipe.userName} comment={comment} />
+                recipeId={recipe.id} comment={comment} />
             ))
           }
         </CardContent>
@@ -108,6 +108,7 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
       <NewCommentDialog
         handleCloseNewCommentDialog={handleCloseNewCommentDialog}
         openNewCommentDialog={openNewCommentDialog}
+        recipeId={recipe.id}
       />
     </Dialog>
   );

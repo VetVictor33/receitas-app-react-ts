@@ -3,20 +3,22 @@ import { Recipe } from "../../../types/Recipes";
 import { red } from '@mui/material/colors';
 import { formatDate, getFirstLetter } from "../../../utils/formatUtils";
 import { getItem } from "../../../storage";
+import DeleteCommentMenu from "./DeleteCommentMenu";
 
 
-export default function Comment({ recipeUsername, comment }: { recipeUsername: string, comment: Recipe['metrics']['comments'][number] }) {
+export default function Comment({ recipeId, comment }: { recipeId: Recipe['id'], comment: Recipe['metrics']['comments'][number] }) {
+
   return (
-    <Card>
+    < Card >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label={comment.username}>
             {getFirstLetter(comment.username)}
           </Avatar>
         }
-        action={recipeUsername === getItem('username') ?
+        action={comment.username === getItem('username') ?
           <IconButton aria-label="settings">
-            <p>local para o usuario autor do comentario apagá-lo</p>
+            <DeleteCommentMenu commentId={comment.id} recipeId={recipeId} />
           </IconButton>
           : ''
         }
@@ -28,6 +30,6 @@ export default function Comment({ recipeUsername, comment }: { recipeUsername: s
           {comment.content}
         </Typography>
       </CardContent>
-    </Card>
+    </Card >
   )
 }

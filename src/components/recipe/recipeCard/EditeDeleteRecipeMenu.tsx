@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
@@ -7,11 +7,23 @@ import { Recipe } from '../../../types/Recipes';
 import Api from '../../../services/API/api';
 import useUser from '../../../hook/useUser';
 import NewRecipeModal from '../../header/NewRecipeModal';
+import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';
 
 
-export default function FadeMenu({recipe}: {recipe: Recipe}) {
-  const {recipes, setRecipes} = useUser()
+export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
+  const { recipes, setRecipes } = useUser()
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
+
+  const handleClickOpenDeleteConfirmationDialog = () => {
+    setOpenDeleteConfirmationDialog(true);
+    handleMenuClose()
+  };
+
+  const handleCloseDeleteConfirmationDialog = () => {
+    setOpenDeleteConfirmationDialog(false);
+  };
 
   const handleModalOpen = () => {
     setModalOpen(true)
@@ -42,7 +54,7 @@ export default function FadeMenu({recipe}: {recipe: Recipe}) {
 
   return (
     <div>
-      <MoreVertIcon onClick={handleClick}/>
+      <MoreVertIcon onClick={handleClick} />
       <Menu
         id="fade-menu"
         MenuListProps={{
@@ -54,9 +66,16 @@ export default function FadeMenu({recipe}: {recipe: Recipe}) {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleModalOpen}>Editar receita</MenuItem>
-        <MenuItem onClick={handleDelete}>Apagar receita</MenuItem>
+        <MenuItem onClick={handleClickOpenDeleteConfirmationDialog}>Apagar receita</MenuItem>
       </Menu>
-      <NewRecipeModal incomeRecipe={recipe} handleModalClose={handleModalClose} modalOpen={modalOpen}/>
+      <NewRecipeModal
+        incomeRecipe={recipe}
+        handleModalClose={handleModalClose}
+        modalOpen={modalOpen} />
+      <DeleteConfirmationDialog
+        confirmDelete={handleDelete}
+        handleCloseDeleteConfirmationDialog={handleCloseDeleteConfirmationDialog}
+        openDeleteConfirmationDialog={openDeleteConfirmationDialog} />
     </div>
   );
 }

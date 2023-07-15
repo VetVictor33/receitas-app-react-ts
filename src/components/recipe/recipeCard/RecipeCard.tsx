@@ -14,7 +14,7 @@ import useUser from '../../../hook/useUser';
 import Api from '../../../services/API/api';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
-import FadeMenu from './FadeMenu';
+import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import RecipeDetailsDialog from '../RecipeDetailsDialog';
 import { formatDate, getFirstLetter } from '../../../utils/formatUtils';
@@ -101,7 +101,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
         }
         action={recipe.userName === getItem('username') ?
           <IconButton aria-label="settings">
-            <FadeMenu recipe={recipe} />
+            <EditeDeleteRecipeMenu recipe={recipe} />
           </IconButton>
           : ''
         }

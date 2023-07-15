@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
-        element: <ValidateToken route='/'/>,
+        element: <ValidateToken route='/' />,
         children: [
           {
             path: '/dashboard',
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <UserProvider>
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </UserProvider>
   </React.StrictMode>
 )
