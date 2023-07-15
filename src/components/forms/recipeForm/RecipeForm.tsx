@@ -100,7 +100,7 @@ export default function RecipeForm() {
       hasAnyFeedbackRef.current = true
     }
 
-    if(!image || image.type.indexOf('image') < 0) {
+    if(!image || (image.type.indexOf('jpeg') < 0 && image.type.indexOf('png') < 0)) {
       setImageError(true)
       hasAnyFeedbackRef.current = true
     }
@@ -108,7 +108,8 @@ export default function RecipeForm() {
     if(hasAnyFeedbackRef.current || !image){
       setSubmitButtonStyle('error')
       setAlertStyle('warning')
-      if(image && image.type.indexOf('image') < 0) {
+      if(image && (image.type.indexOf('jpeg') < 0 && image.type.indexOf('png') < 0)) {
+        console.log(image.type, image.type.indexOf('jpeg'));
         setFeedbackMessage('Formato de arquivo não suportado')
       } else {
         setFeedbackMessage('Preencha todos os campos')
@@ -127,6 +128,7 @@ export default function RecipeForm() {
 
       const localRecipes: Recipe[] = [...recipes, newRecipe]
       setRecipes(localRecipes)
+      cleanForm()
     } catch (error) {
       console.log(error)
 
@@ -146,6 +148,13 @@ export default function RecipeForm() {
     formData.append('image', data.image)
     const response = await Api.createRecipe(formData)
     return response
+  }
+
+  function cleanForm() {
+    setTitle('')
+    setCategoryName('')
+    setDescription('')
+    setIngredients('')
   }
 
   return (
