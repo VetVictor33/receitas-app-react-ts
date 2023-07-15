@@ -1,7 +1,7 @@
 import FormControl from '@mui/material/FormControl';
 import { Box, Button, Input, InputLabel } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
-import { ChangeEvent, useState, useRef } from 'react';
+import { ChangeEvent, useState, useRef, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS, HINT_RECIPE_NAME } from '../../../utils/formHints';
@@ -23,14 +23,18 @@ type AlertStyle = {
   'success': string
 }
 
-export default function RecipeForm() {
+export default function RecipeForm({incomeRecipe}:{incomeRecipe: Recipe}) {
   const {recipes, setRecipes} = useUser()!
+  const editing = incomeRecipe ? true : false;
 
   const [title, setTitle] = useState<string>('')
   const [categoryName, setCategoryName] = useState<string>('')
-  const [ingredients, setIngredients] = useState<string>('')
+  const [ingredients, setIngredients] = useState<string|string[]>('')
   const [description, setDescription] = useState<string>('')
   const [image, setImage] = useState<File | null>(null)
+
+  const previewImage = useRef(undefined)
+  const reader = new FileReader()
 
   const [titleError, setTitleError] = useState<boolean>(false)
   const [categoryNameError, setCategoryNameError] = useState<boolean>(false)
@@ -40,7 +44,6 @@ export default function RecipeForm() {
 
   const hasAnyFeedbackRef = useRef(false)
   const [feedBackMessage, setFeedbackMessage] = useState<string>('')
-
 
   const [submitButtonStyle, setSubmitButtonStyle] = useState<keyof SubmitButtonStyle>('secondary')
   const [alertStyle, setAlertStyle] = useState<keyof AlertStyle>('warning')
@@ -68,8 +71,15 @@ export default function RecipeForm() {
           setDescriptionError(false)
         break
       case 'image':
-          setImage(e.target.files[0])
+          const file = e.target.files[0]
+          setImage(file)
           setImageError(false)
+          reader.onload = (ev) => {
+            previewImage.current.src = ev.target.result
+            previewImage.current.style.display = 'block'
+          }      
+          reader.readAsDataURL(file);
+          
         break
     }
 
@@ -119,19 +129,25 @@ export default function RecipeForm() {
     
     try {
       const data = {title, categoryName, description, ingredients, image}
-      const newRecipe = await postRescipe(data)
+      const newRecipe = await postOrUpdateRecipe(data)
       
       hasAnyFeedbackRef.current= true
       setFeedbackMessage('Receita adicionada com sucesso!')
       setAlertStyle('success')
       setSubmitButtonStyle('success')
 
-      const localRecipes: Recipe[] = [...recipes, newRecipe]
+      let localRecipes: Recipe[];
+      if(editing) {
+          const filteredRecipes = recipes.filter(item => item.id !== incomeRecipe.id)
+          localRecipes = [newRecipe, ...filteredRecipes]
+      }else{
+        localRecipes = [...recipes, newRecipe]
+      }
       setRecipes(localRecipes)
       cleanForm()
     } catch (error) {
       console.log(error)
-
+      
       hasAnyFeedbackRef.current= true
       setFeedbackMessage('Algo deu errado')
       setAlertStyle('error')
@@ -139,14 +155,19 @@ export default function RecipeForm() {
     }
   }
 
-  async function postRescipe(data: newRecipeFromForm ) {
+  async function postOrUpdateRecipe(data: newRecipeFromForm ) {
     const formData = new FormData();
     formData.append('title', data.title)
     formData.append('categoryName', data.categoryName)
     formData.append('description', data.description)
     formData.append('ingredients', data.ingredients)
     formData.append('image', data.image)
-    const response = await Api.createRecipe(formData)
+    let response;
+    if (editing) {
+      response = await Api.updateRecipe(formData, incomeRecipe.id)
+    }else {
+      response = await Api.createRecipe(formData)
+    }
     return response
   }
 
@@ -156,6 +177,17 @@ export default function RecipeForm() {
     setDescription('')
     setIngredients('')
   }
+
+  useEffect(()=> {
+    if(editing) {
+      setTitle(incomeRecipe.title)
+      setCategoryName(incomeRecipe.category)
+      setIngredients(incomeRecipe.ingredients.map(item => item.name))
+      setDescription(incomeRecipe.description)
+      previewImage.current.src = import.meta.env.VITE_BASE_URL+incomeRecipe.imageUrl
+      previewImage.current.style.display = 'block';
+    }
+  }, [])
 
   return (
     <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -181,12 +213,18 @@ export default function RecipeForm() {
     </FormControl>
 
     <FormControl>
-      <Input type='file' name="image" onChange={handleInputChange}/>
+      <Input error={imageError} type='file' name="image" onChange={handleInputChange}/>
+      <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{display: 'none'}}/>
     </FormControl>
 
     <Stack sx={{ width: '100%' }} spacing={2}>
       {hasAnyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
-      <Button color={submitButtonStyle} type='submit'>Criar</Button>
+      <Button color={submitButtonStyle} type='submit'>
+        {editing ?
+          'Atualizar':
+          'Criar'
+        }
+        </Button>
     </Stack>
 
     </Box>

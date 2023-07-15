@@ -1,4 +1,3 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
 import Avatar from '@mui/material/Avatar';
@@ -7,46 +6,27 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import Collapse from '@mui/material/Collapse';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import useUser from '../../../hook/useUser';
+import Api from '../../../services/API/api';
+import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
 import formatDate from '../../../utils/formatDate';
 import FadeMenu from './FadeMenu';
-import Api from '../../../services/API/api';
-import useUser from '../../../hook/useUser';
-import { getItem } from '../../../storage';
-
-interface ExpandMoreProps extends IconButtonProps {
-  expand: boolean;
-}
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 
 type metric = 'like' | 'favorite'
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
 export default function RecipeCard({recipe}:{recipe: Recipe}) {
-  const [expandedDescription, setExpandedDescription] = useState(false)
-  const {recipes, setRecipes} = useUser()!
+  const {recipes, setRecipes} = useUser()
   const [lockInteractions, setLockInteractions] = useState(false)
+
   const categoryFirstLetter = recipe.category.split('')[0]
   const date = formatDate(recipe.createdAt)
-
-  const handleExpandDescriptionClick = () => {
-    setExpandedDescription(!expandedDescription);
-  };
+  
 
   const handleFavorite = async () => {
       if(lockInteractions) return
@@ -110,7 +90,7 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
         }
         action={ recipe.userName === getItem('username') ?
           <IconButton aria-label="settings">
-            <FadeMenu recipeId={recipe.id}/>
+            <FadeMenu recipe={recipe}/>
           </IconButton>
           : ''
         }
@@ -128,34 +108,23 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
           por: {recipe.userName}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites"
-          onClick={handleFavorite}
-        >
-          <StarIcon/> {recipe.metrics.favorites.totalFavorites}
+      <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites"
+            onClick={handleFavorite}
+            >
+            <StarIcon/> {recipe.metrics.favorites.totalFavorites}
+          </IconButton>
+          <IconButton aria-label="like"
+            onClick={handleLike}
+            >
+            <FavoriteIcon/> {recipe.metrics.likes.totalLikes}
+          </IconButton>
+          </CardActions>
+        <IconButton>
+          <OpenInFullIcon/>
         </IconButton>
-        <IconButton aria-label="like"
-          onClick={handleLike}
-        >
-          <FavoriteIcon/> {recipe.metrics.likes.totalLikes}
-        </IconButton>
-        <ExpandMore
-          expand={expandedDescription}
-          onClick={handleExpandDescriptionClick}
-          aria-expanded={expandedDescription}
-          aria-label="mostrar mais"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
       </CardActions>
-      <Collapse in={expandedDescription} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Descrição:</Typography>
-          <Typography paragraph>
-            {recipe.description}
-          </Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 }

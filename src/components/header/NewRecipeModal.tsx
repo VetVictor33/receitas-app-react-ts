@@ -16,7 +16,7 @@ const style = {
   p: 4,
 };
 
-export default function NewRecipeModal({modalOpen, handleModalClose}) {
+export default function NewRecipeModal({modalOpen, handleModalClose, incomeRecipe}) {
 
   return (
       <Modal
@@ -26,7 +26,7 @@ export default function NewRecipeModal({modalOpen, handleModalClose}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <RecipeForm/>
+          <RecipeForm incomeRecipe={incomeRecipe}/>
         </Box>
       </Modal>
   );

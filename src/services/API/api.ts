@@ -44,7 +44,12 @@ export default abstract class Api{
     }
 
     public static async createRecipe(formData: FormData) {
-        const {data} : {data: Recipe[]} = await axios.post('/recipes', formData, { headers: this.formdataHeaders})
+        const {data} : {data: Recipe} = await axios.post('/recipes', formData, { headers: this.formdataHeaders})
+        return data
+    }
+
+    public static async updateRecipe(formData: FormData, recipeId: number) {
+        const {data} : {data: Recipe} = await axios.put(`/recipes/${recipeId}`, formData, { headers : this.formdataHeaders})
         return data
     }
 
