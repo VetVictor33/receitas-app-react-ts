@@ -10,7 +10,6 @@ import NewRecipeModal from '../../header/NewRecipeModal';
 
 
 export default function FadeMenu({recipe}: {recipe: Recipe}) {
-  console.log(recipe)
   const {recipes, setRecipes} = useUser()
   const [modalOpen, setModalOpen] = useState(false);
 

@@ -6,7 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
@@ -14,35 +14,45 @@ import useUser from '../../../hook/useUser';
 import Api from '../../../services/API/api';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
-import formatDate from '../../../utils/formatDate';
 import FadeMenu from './FadeMenu';
 import OpenInFullIcon from '@mui/icons-material/OpenInFull';
+import RecipeDetailsDialog from '../RecipeDetailsDialog';
+import { formatDate, getFirstLetter } from '../../../utils/formatUtils';
 
 type metric = 'like' | 'favorite'
 
-export default function RecipeCard({recipe}:{recipe: Recipe}) {
-  const {recipes, setRecipes} = useUser()
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const { recipes, setRecipes } = useUser()
   const [lockInteractions, setLockInteractions] = useState(false)
+  const [openRecipeDetailsDialog, setOpenRecipeDetailsDialog] = useState(false);
 
-  const categoryFirstLetter = recipe.category.split('')[0]
+  const handleClickOpenRecipeDetailsDialog = () => {
+    setOpenRecipeDetailsDialog(true);
+  };
+
+  const handleCloseRecipeDetailsDialog = () => {
+    setOpenRecipeDetailsDialog(false);
+  };
+
+  const usernameFirstLetter = getFirstLetter(recipe.userName)
   const date = formatDate(recipe.createdAt)
-  
+
 
   const handleFavorite = async () => {
-      if(lockInteractions) return
-      setLockInteractions(true)
-      try {
-        await Api.favoriteRecipe(recipe.id)
-        handleMetricChange('favorite')
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLockInteractions(false)
-      }
+    if (lockInteractions) return
+    setLockInteractions(true)
+    try {
+      await Api.favoriteRecipe(recipe.id)
+      handleMetricChange('favorite')
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLockInteractions(false)
+    }
   }
 
   const handleLike = async () => {
-    if(lockInteractions) return
+    if (lockInteractions) return
     setLockInteractions(true)
     try {
       await Api.likeRecipe(recipe.id)
@@ -55,28 +65,29 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
   }
 
   const handleMetricChange = (metric: metric) => {
-    const localRecipes : Recipe[] =[...recipes]
+    const localRecipes: Recipe[] = [...recipes]
     localRecipes.forEach(item => {
-      if(item.id === recipe.id){
-        if(metric === 'like') {
+      if (item.id === recipe.id) {
+        if (metric === 'like') {
           if (recipe.metrics.liked) {
-          recipe.metrics.liked = false
-          recipe.metrics.likes.totalLikes--
-      } else {
-        recipe.metrics.liked = true
-        recipe.metrics.likes.totalLikes++
-      }
-    } else if (metric === 'favorite'){
-        if (recipe.metrics.favorited) {
-          recipe.metrics.favorited = false
-          recipe.metrics.favorites.totalFavorites--
-        } else {
-          recipe.metrics.favorited = true
-          recipe.metrics.favorites.totalFavorites++
+            recipe.metrics.liked = false
+            recipe.metrics.likes.totalLikes--
+          } else {
+            recipe.metrics.liked = true
+            recipe.metrics.likes.totalLikes++
+          }
+        } else if (metric === 'favorite') {
+          if (recipe.metrics.favorited) {
+            recipe.metrics.favorited = false
+            recipe.metrics.favorites.totalFavorites--
+          } else {
+            recipe.metrics.favorited = true
+            recipe.metrics.favorites.totalFavorites++
+          }
         }
       }
-    }})
-      
+    })
+
     setRecipes(localRecipes)
   }
 
@@ -85,12 +96,12 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label={recipe.category}>
-            {categoryFirstLetter}
+            {usernameFirstLetter}
           </Avatar>
         }
-        action={ recipe.userName === getItem('username') ?
+        action={recipe.userName === getItem('username') ?
           <IconButton aria-label="settings">
-            <FadeMenu recipe={recipe}/>
+            <FadeMenu recipe={recipe} />
           </IconButton>
           : ''
         }
@@ -108,23 +119,31 @@ export default function RecipeCard({recipe}:{recipe: Recipe}) {
           por: {recipe.userName}
         </Typography>
       </CardContent>
-      <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites"
             onClick={handleFavorite}
-            >
-            <StarIcon/> {recipe.metrics.favorites.totalFavorites}
+          >
+            <StarIcon /> {recipe.metrics.favorites.totalFavorites}
           </IconButton>
           <IconButton aria-label="like"
             onClick={handleLike}
-            >
-            <FavoriteIcon/> {recipe.metrics.likes.totalLikes}
+          >
+            <FavoriteIcon /> {recipe.metrics.likes.totalLikes}
           </IconButton>
-          </CardActions>
-        <IconButton>
-          <OpenInFullIcon/>
+        </CardActions>
+        <IconButton
+          onClick={handleClickOpenRecipeDetailsDialog}
+        >
+          <OpenInFullIcon />
         </IconButton>
       </CardActions>
+      <RecipeDetailsDialog
+        recipe={recipe}
+        handleCloseRecipeDetailsDialog={handleCloseRecipeDetailsDialog}
+        openRecipeDetailsDialog={openRecipeDetailsDialog}
+        handleFavorite={handleFavorite}
+        handleLike={handleLike} />
     </Card>
   );
 }
