@@ -13,12 +13,12 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
-import { Recipe } from '../../types/Recipes';
-import formatDate from '../../utils/formatDate';
+import { Recipe } from '../../../types/Recipes';
+import formatDate from '../../../utils/formatDate';
 import FadeMenu from './FadeMenu';
-import Api from '../../services/API/api';
-import useUser from '../../hook/useUser';
-import { getItem } from '../../storage';
+import Api from '../../../services/API/api';
+import useUser from '../../../hook/useUser';
+import { getItem } from '../../../storage';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;

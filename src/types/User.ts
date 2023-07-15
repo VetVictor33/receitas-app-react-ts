@@ -17,6 +17,10 @@ export type UserLogin = {
 export type UserContextType = {
   recipes: Recipe[]
   setRecipes: (recipes: Recipe[]) => void
+  userRecipes: Recipe[]
+  setUserRecipes: (recipes: Recipe[]) => void
+  favoriteRecipes: Recipe[]
+  setFavoriteRecipes: (recipes: Recipe[]) => void
   user: User | undefined
   setUser: (user: User) => void;
 };

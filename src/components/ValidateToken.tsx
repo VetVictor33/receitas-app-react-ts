@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { getItem } from "../storage";
-import Header from "./Header";
+import Header from "./header/Header";
 import Footer from "./Footer";
 
 export default function ValidateToken({route}: {route: string}) {

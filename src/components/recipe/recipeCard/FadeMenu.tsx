@@ -3,9 +3,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Recipe } from '../../types/Recipes';
-import Api from '../../services/API/api';
-import useUser from '../../hook/useUser';
+import { Recipe } from '../../../types/Recipes';
+import Api from '../../../services/API/api';
+import useUser from '../../../hook/useUser';
 
 
 export default function FadeMenu({recipeId}: {recipeId: Recipe['id']}) {

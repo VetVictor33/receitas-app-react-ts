@@ -2,7 +2,7 @@ import axios from "../axios/axios";
 import { UserLogin, UserSignup } from "../../types/User";
 import { getItem } from "../../storage";
 import { Recipe } from "../../types/Recipes";
-import { IloginAttempt } from "../../types/ApiReturn";
+import { IloginAttempt, IpaginatedResonse } from "../../types/ApiReturn";
 
 export default abstract class Api{
     private static token = getItem('token')!
@@ -24,7 +24,22 @@ export default abstract class Api{
     }
 
     public static async getAllRecipes() {
-        const {data} : {data : Recipe[]} = await axios.get('/recipes', { headers: this.headers})
+        const {data} : {data : IpaginatedResonse} = await axios.get('/recipes', { headers: this.headers})
+        return data
+    }
+
+    public static async paginatedRecipes(pageNumber: number, recipePerPage: number) {
+        const {data} : {data : IpaginatedResonse} = await axios.post('/paginate', {pageNumber, recipePerPage},{ headers: this.headers})
+        return data
+    }
+
+    public static async getUserRecipes(pageNumber: number, recipePerPage: number) {
+        const {data} : {data: IpaginatedResonse} = await axios.post('/user-recipes', {pageNumber, recipePerPage},{headers: this.headers})
+        return data
+    }
+
+    public static async getUserFavoriteRecipes(pageNumber: number, recipePerPage: number) {
+        const {data} : {data: IpaginatedResonse} = await axios.post('/user-favorite-recipes', {pageNumber, recipePerPage}, {headers: this.headers})
         return data
     }
 
@@ -34,11 +49,11 @@ export default abstract class Api{
     }
 
     public static async likeRecipe(id: number) {
-        await axios.post(`/recipes/like/${id}`, undefined, { headers:this.headers })
+        await axios.post(`/like/${id}`, undefined, { headers:this.headers })
     }
 
     public static async favoriteRecipe(id: number) {
-        await axios.post(`/recipes/favorite/${id}`, undefined, { headers:this.headers })
+        await axios.post(`/favorite/${id}`, undefined, { headers:this.headers })
     }
 
     public static async deleteRecipe(id: number) {

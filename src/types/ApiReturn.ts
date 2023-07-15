@@ -1,3 +1,4 @@
+import { Recipe } from "./Recipes"
 import { User } from "./User"
 
 export interface IloginAttempt {
@@ -10,4 +11,9 @@ export interface IloginAttempt {
     username: User['username'],
     email: User['email']
   }
+}
+
+export interface IpaginatedResonse {
+  allRecipes: Recipe[]
+  totalPages: number
 }

@@ -176,7 +176,7 @@ export default function RecipeForm() {
     </FormControl>
     <FormControl>
       <InputLabel htmlFor="my-input">Instruções</InputLabel>
-      <Input error={descriptionError} name="description" value={description} aria-describedby="my-helper-text" onChange={handleInputChange}/>
+      <Input error={descriptionError} name="description" value={description} aria-describedby="my-helper-text" type='textare' onChange={handleInputChange}/>
       <FormHelperText id="my-helper-text">{description ? '':`${HINT_RECIPE_DESCRIPTION}`}</FormHelperText>
     </FormControl>
 

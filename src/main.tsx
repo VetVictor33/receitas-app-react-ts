@@ -7,9 +7,10 @@ import Dashboard from './pages/Dashboard.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import Login from './pages/Login.tsx';
 import Signup from './pages/Signup.tsx';
-import RecipePage from './pages/RecipePage.tsx';
+import UserFavoriteRecipes from './pages/UserFavoriteRecipes.tsx';
 import ValidateToken from './components/ValidateToken.tsx';
 import UserProvider from './context/UserContext.tsx';
+import UserRecipes from './pages/UserRecipes.tsx';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +33,12 @@ const router = createBrowserRouter([
             element: < Dashboard />
           },
           {
-            path: '/dashboard/receita',
-            element: <RecipePage />
+            path: '/dashboard/minhas-receitas',
+            element: <UserRecipes />
+          },
+          {
+            path: '/dashboard/receitas-favoritas',
+            element: <UserFavoriteRecipes />
           }
         ]
       }
