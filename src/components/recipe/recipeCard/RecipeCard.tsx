@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
 import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';
@@ -92,7 +92,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   }
 
   return (
-    <Card sx={{ minWidth: 345, height: 'fit-content' }}>
+    <Card sx={{ width: 345, height: 'fit-content' }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label={recipe.category}>
@@ -111,6 +111,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
       <CardMedia
         component="img"
         height="194"
+        width="354"
         src={`${import.meta.env.VITE_BASE_URL}${recipe.imageUrl}`}
         alt={recipe.title}
       />

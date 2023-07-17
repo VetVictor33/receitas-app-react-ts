@@ -1,4 +1,4 @@
-import React, { createContext, useState, } from 'react';
+import React, { createContext, useState } from 'react';
 import { User, UserContextType } from '../types/User';
 import { Recipe } from '../types/Recipes';
 

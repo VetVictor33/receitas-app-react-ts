@@ -107,7 +107,6 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       setSubmitButtonStyle('error')
       setAlertStyle('warning')
       if (image && (image.type.indexOf('jpeg') < 0 && image.type.indexOf('png') < 0)) {
-        console.log(image.type, image.type.indexOf('jpeg'));
         setFeedbackMessage('Formato de arquivo não suportado')
       } else {
         setFeedbackMessage('Preencha todos os campos')
@@ -120,7 +119,6 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       const newRecipe = await postOrUpdateRecipe(data)
 
       hasAnyFeedbackRef.current = true
-      setFeedbackMessage('Receita adicionada com sucesso!')
       setAlertStyle('success')
       setSubmitButtonStyle('success')
 
@@ -128,16 +126,20 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       if (editing) {
         const filteredRecipes = recipes.filter(item => item.id !== incomeRecipe.id)
         localRecipes = [newRecipe, ...filteredRecipes]
+        setFeedbackMessage('Receita atualizada com sucesso!')
       } else {
-        localRecipes = [...recipes, newRecipe]
+        setFeedbackMessage('Receita adicionada com sucesso!')
+        localRecipes = [newRecipe, ...recipes]
       }
       setRecipes(localRecipes)
       cleanForm()
     } catch (error) {
-      console.log(error)
-
       hasAnyFeedbackRef.current = true
-      setFeedbackMessage('Algo deu errado')
+      if (error.response.data.errors) {
+        setFeedbackMessage(error.response.data.errors[0].message)
+      } else {
+        setFeedbackMessage(error.response.data.message)
+      }
       setAlertStyle('error')
       setSubmitButtonStyle('error')
     }
@@ -178,31 +180,43 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
   }, [])
 
   return (
-    <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+    <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
+      style={{ display: 'fle', flexDirection: 'column', gap: '10px' }}
+    >
       <FormControl>
         <InputLabel htmlFor="my-input">Nome da receita</InputLabel>
-        <Input error={titleError} name="title" value={title} aria-describedby="my-helper-text" onChange={handleInputChange} />
+        <Input error={titleError} name="title" value={title} onChange={handleInputChange}
+          aria-describedby="my-helper-text" />
         <FormHelperText id="my-helper-text">{title ? '' : `${HINT_RECIPE_NAME}`}</FormHelperText>
       </FormControl>
       <FormControl>
         <InputLabel htmlFor="my-input">Categoria</InputLabel>
-        <Input error={categoryNameError} name="categoryName" value={categoryName} aria-describedby="my-helper-text" onChange={handleInputChange} />
+        <Input error={categoryNameError} name="categoryName" value={categoryName} onChange={handleInputChange}
+          aria-describedby="my-helper-text" />
         <FormHelperText id="my-helper-text">{categoryName ? '' : `${HINT_RECIPE_CATEGORY}`}</FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl fullWidth>
         <InputLabel htmlFor="my-input">Ingredientes</InputLabel>
-        <Input error={ingredientsError} name="ingredients" value={ingredients} aria-describedby="my-helper-text" onChange={handleInputChange} />
+        <Input error={ingredientsError} name="ingredients" value={ingredients} onChange={handleInputChange}
+          aria-describedby="my-helper-text"
+          fullWidth
+        />
         <FormHelperText id="my-helper-text">{ingredients ? '' : `${HINT_RECIPE_INGREDIENTS}`}</FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl fullWidth>
         <InputLabel htmlFor="my-input">Instruções</InputLabel>
-        <Input error={descriptionError} name="description" value={description} aria-describedby="my-helper-text" type='textare' onChange={handleInputChange} />
+        <Input error={descriptionError} name="description" value={description} onChange={handleInputChange}
+          multiline
+          rows={4}
+          aria-describedby="my-helper-text"
+          fullWidth={true}
+        />
         <FormHelperText id="my-helper-text">{description ? '' : `${HINT_RECIPE_DESCRIPTION}`}</FormHelperText>
       </FormControl>
 
       <FormControl>
         <Input error={imageError} type='file' name="image" onChange={handleInputChange} />
-        <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{ display: 'none' }} />
+        <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{ display: 'none', maxWidth: '100%' }} />
       </FormControl>
 
       <Stack sx={{ width: '100%' }} spacing={2}>

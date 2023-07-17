@@ -49,7 +49,6 @@ export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: R
       })
       setRecipes(localRecipes)
     } catch (error) {
-      console.log(error)
     } finally {
       handleMenuClose()
     }

@@ -109,9 +109,12 @@ export default function LoginForm() {
       setSubmitButtonStyle('success')
       cleanForm()
     } catch (error) {
-      console.log(error)
       hasAnyFeedbackRef.current = true
-      setFeedbackMessage('Algo deu errado')
+      if (error.response.data.errors) {
+        setFeedbackMessage(error.response.data.errors[0].message)
+      } else {
+        setFeedbackMessage(error.response.data.message)
+      }
       setAlertStyle('error')
       setSubmitButtonStyle('error')
     }

@@ -38,7 +38,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
       setContent('')
 
     } catch (error) {
-      console.log(error)
+      setCommentError(true)
     }
   }
   const handleContentChange = (e) => {

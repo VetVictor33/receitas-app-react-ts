@@ -43,7 +43,6 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
         setTotalPages(totalPages)
         setLoading(false)
       } catch (error) {
-        console.log(error)
         destroyStorage()
         navigateTo('/')
       }
