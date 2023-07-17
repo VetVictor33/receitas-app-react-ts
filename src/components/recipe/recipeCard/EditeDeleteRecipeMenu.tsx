@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Recipe } from '../../../types/Recipes';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
 import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';

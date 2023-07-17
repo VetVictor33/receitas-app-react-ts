@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS, HINT_RECIPE_NAME } from '../../../utils/formHints';
 import { Recipe, newRecipeFromForm } from '../../../types/Recipes';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
 
 

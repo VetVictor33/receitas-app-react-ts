@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Recipe } from '../../../types/Recipes';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
 import { Alert } from '@mui/material';
 

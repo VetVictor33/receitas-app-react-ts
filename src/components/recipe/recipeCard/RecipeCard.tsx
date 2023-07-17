@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
 import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';

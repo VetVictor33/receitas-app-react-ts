@@ -22,5 +22,7 @@ export type UserContextType = {
   favoriteRecipes: Recipe[]
   setFavoriteRecipes: (recipes: Recipe[]) => void
   user: User | undefined
-  setUser: (user: User) => void;
+  setUser: (user: User) => void
+  currentRecipesPage: number
+  setCurrentRecipesPage: (page: number) => void
 };

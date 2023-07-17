@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import Api from '../../../services/API/api';
+import Api from '../../../services/API/Api';
 import { Recipe } from '../../../types/Recipes';
 import { Comment } from '../../../types/Comments';
 import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';

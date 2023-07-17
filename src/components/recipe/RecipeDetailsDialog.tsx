@@ -40,7 +40,6 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
     setOpenNewCommentDialog(false);
   };
   const imageUrl = getUrl(recipe.imageUrl)
-  console.log(recipe.metrics.comments)
 
   return (
     <Dialog

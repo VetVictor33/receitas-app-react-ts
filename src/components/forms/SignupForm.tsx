@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { INVALID_EMAIL, REQUIRED_DATA } from '../../utils/globalErrorMessages';
 import { Button } from '@mui/material';
-import Api from '../../services/API/api';
+import Api from '../../services/API/Api';
 import { useNavigate } from 'react-router-dom'
 import useUser from '../../hook/useUser';
 
 
-export default function SignupForm(){
+export default function SignupForm() {
   return (
     <Formik
       initialValues={{ username: '', email: '', password: '' }}
@@ -19,11 +19,11 @@ export default function SignupForm(){
         ) {
           errors.email = INVALID_EMAIL;
         }
-        if(!values.password) {
+        if (!values.password) {
           errors.password = REQUIRED_DATA
         }
-        if(!values.username){
-          errors.username =  REQUIRED_DATA
+        if (!values.username) {
+          errors.username = REQUIRED_DATA
         }
         return errors;
       }}
@@ -50,7 +50,7 @@ export default function SignupForm(){
           <Button variant="contained"
             type='submit'
             disabled={isSubmitting}>
-              Cadastrar
+            Cadastrar
           </Button>
           <a href="/">Já tem conta? Faça login!</a>
         </Form>
