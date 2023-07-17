@@ -6,12 +6,13 @@ import { useEffect } from "react";
 export default function Login() {
   const token = getItem('token')
   const navigateTo = useNavigate()
-  
+
   useEffect(() => {
-    if(token) navigateTo('/dashboard')})
+    if (token) navigateTo('/dashboard/home')
+  })
   return (
     <div>
-      <LoginForm/>
+      <LoginForm />
     </div>
   )
 }

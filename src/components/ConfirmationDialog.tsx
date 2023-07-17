@@ -5,19 +5,20 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import useUser from '../hook/useUser';
 
-export default function DeleteConfirmationDialog({
-  openDeleteConfirmationDialog, handleCloseDeleteConfirmationDialog, confirmDelete
-}: { openDeleteConfirmationDialog: boolean, handleCloseDeleteConfirmationDialog: () => void, confirmDelete: () => void }) {
-
-  const handleDeleteConfirmation = () => {
-    confirmDelete()
+export default function ConfirmationDialog({
+  openConfirmationDialog, handleCloseConfirmationDialog, confirm
+}: { openConfirmationDialog: boolean, handleCloseConfirmationDialog: () => void, confirm: () => void }) {
+  const { logginOut } = useUser()
+  const handleConfirmation = () => {
+    confirm()
   }
 
   return (
     <Dialog
-      open={openDeleteConfirmationDialog}
-      onClose={handleCloseDeleteConfirmationDialog}
+      open={openConfirmationDialog}
+      onClose={handleCloseConfirmationDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -26,12 +27,14 @@ export default function DeleteConfirmationDialog({
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Essa ação não pode ser revertida.
+          {logginOut ? 'Você será deslogado' :
+            'Essa ação não pode ser revertida.'
+          }
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleCloseDeleteConfirmationDialog}>Cancelar</Button>
-        <Button onClick={handleDeleteConfirmation} autoFocus>
+        <Button onClick={handleCloseConfirmationDialog}>Cancelar</Button>
+        <Button onClick={handleConfirmation} autoFocus>
           Confirmar
         </Button>
       </DialogActions>

@@ -7,22 +7,22 @@ import { Recipe } from '../../../types/Recipes';
 import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
-import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';
+import ConfirmationDialog from '../../ConfirmationDialog';
 
 
 export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
   const { recipes, setRecipes } = useUser()
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
+  const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
 
-  const handleClickOpenDeleteConfirmationDialog = () => {
-    setOpenDeleteConfirmationDialog(true);
+  const handleClickOpenConfirmationDialog = () => {
+    setOpenConfirmationDialog(true);
     handleMenuClose()
   };
 
-  const handleCloseDeleteConfirmationDialog = () => {
-    setOpenDeleteConfirmationDialog(false);
+  const handleCloseConfirmationDialog = () => {
+    setOpenConfirmationDialog(false);
   };
 
   const handleModalOpen = () => {
@@ -66,16 +66,16 @@ export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleModalOpen}>Editar receita</MenuItem>
-        <MenuItem onClick={handleClickOpenDeleteConfirmationDialog}>Apagar receita</MenuItem>
+        <MenuItem onClick={handleClickOpenConfirmationDialog}>Apagar receita</MenuItem>
       </Menu>
       <RecipeModal
         incomeRecipe={recipe}
         handleModalClose={handleModalClose}
         modalOpen={modalOpen} />
-      <DeleteConfirmationDialog
-        confirmDelete={handleDelete}
-        handleCloseDeleteConfirmationDialog={handleCloseDeleteConfirmationDialog}
-        openDeleteConfirmationDialog={openDeleteConfirmationDialog} />
+      <ConfirmationDialog
+        confirm={handleDelete}
+        handleCloseConfirmationDialog={handleCloseConfirmationDialog}
+        openConfirmationDialog={openConfirmationDialog} />
     </div>
   );
 }

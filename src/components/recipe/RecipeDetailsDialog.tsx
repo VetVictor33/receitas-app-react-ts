@@ -14,6 +14,8 @@ import { Recipe } from '../../types/Recipes';
 import { getUrl } from '../../utils/formatUtils';
 import Comment from './comment/Comment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import { Grid } from '@mui/material'
+
 import NewCommentDialog from './comment/NewCommentDialog';
 
 const Transition = forwardRef(function Transition(
@@ -63,47 +65,57 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardMedia
-          sx={{ height: 140 }}
-          image={imageUrl}
-          title={recipe.title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {recipe.userName}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {recipe.ingredients.map(i => `${i.name} `)}
-          </Typography>
-          <Typography variant='body1' sx={{ mt: 2 }}>
-            {recipe.description}
-          </Typography>
-          <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites"
-              onClick={handleFavorite}
-            >
-              <StarIcon /> {recipe.metrics.favorites.totalFavorites}
-            </IconButton>
-            <IconButton aria-label="like"
-              onClick={handleLike}
-            >
-              <FavoriteIcon /> {recipe.metrics.likes.totalLikes}
-            </IconButton>
-            <IconButton>
-              <AddCommentIcon
-                onClick={handleClickOpenNewCommentDialog}
-              />
-            </IconButton>
-          </CardActions>
+      <Grid container spacing={0} justifyContent={'center'}>
+        <Card sx={{ width: '100%' }}>
+          <CardMedia
+            sx={{ height: 330, maxWidth: '450px', margin: 'auto' }}
+            image={imageUrl}
+            title={recipe.title}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {recipe.userName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {recipe.ingredients.map(i => `${i.name} `)}
+            </Typography>
+            <Typography variant='body1' sx={{ mt: 2 }}>
+              {recipe.description}
+            </Typography>
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites"
+                onClick={handleFavorite}
+              >
+                <StarIcon sx={recipe.metrics.favorited && { color: "#ffbe26" }} style={{ fontSize: '2.5rem' }} />
+                <Typography position={'absolute'} color={'white'} fontSize={'1rem'}>
+                  {recipe.metrics.favorites.totalFavorites}
+                </Typography>
+              </IconButton>
+              <IconButton aria-label="like"
+                onClick={handleLike}
+              >
+                <FavoriteIcon sx={recipe.metrics.liked && { color: "#ff0505" }} style={{ fontSize: '2rem' }} />
+                <Typography position={'absolute'} color={'white'} fontSize={'1rem'}>
+                  {recipe.metrics.likes.totalLikes}
+                </Typography>
+              </IconButton>
+              <IconButton>
+                <AddCommentIcon style={{ fontSize: '2rem' }}
+                  onClick={handleClickOpenNewCommentDialog}
+                />
+              </IconButton>
+            </CardActions>
+          </CardContent>
+        </Card>
+        <Grid container spacing={0} justifyContent={'center'}>
           {recipe.metrics.comments.length > 0 &&
             recipe.metrics.comments.map(comment => (
               <Comment key={comment.id}
                 recipeId={recipe.id} comment={comment} />
             ))
           }
-        </CardContent>
-      </Card>
+        </Grid>
+      </Grid>
       <NewCommentDialog
         handleCloseNewCommentDialog={handleCloseNewCommentDialog}
         openNewCommentDialog={openNewCommentDialog}

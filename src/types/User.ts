@@ -25,4 +25,8 @@ export type UserContextType = {
   setUser: (user: User) => void
   currentRecipesPage: number
   setCurrentRecipesPage: (page: number) => void
-};
+  mediaQueryBreakPoint: number
+  setMediaQueriBreakPoint: (page: number) => void
+  logginOut: boolean
+  setLogginOut: (boolean: boolean) => void
+}

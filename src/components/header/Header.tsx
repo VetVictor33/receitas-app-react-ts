@@ -12,8 +12,8 @@ import HeaderSearch from './HeaderSearch';
 export default function Header() {
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, minHeight: '10vh' }}>
+      <AppBar position="static" sx={{ minWidth: '100%' }}>
         <Toolbar>
           <IconButton
             size="large"

@@ -8,12 +8,27 @@ import Api from '../../services/API/Api';
 import { destroyStorage, getItem } from '../../storage';
 import IconButton from '@mui/material/IconButton';
 import { Typography } from '@mui/material';
+import ConfirmationDialog from '../ConfirmationDialog';
+import useUser from '../../hook/useUser';
 
 
 export default function HeaderMenuLogout() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigateTo = useNavigate()
-  const [lockButton, setLockButton] = useState<boolean>(false)
+  const [lockButton, setLockButton] = useState(false)
+  const { setLogginOut } = useUser()
+
+  const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
+
+  const handleClickOpenConfirmationDialog = () => {
+    setOpenConfirmationDialog(true);
+    setLogginOut(true)
+    handleMenuClose()
+  };
+
+  const handleCloseConfirmationDialog = () => {
+    setOpenConfirmationDialog(false);
+  };
 
   const username = getItem('username')
 
@@ -32,10 +47,11 @@ export default function HeaderMenuLogout() {
       destroyStorage()
     } finally {
       navigateTo('/')
+      setLogginOut(false)
     }
   }
 
-  const handleClose = () => {
+  const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
@@ -52,17 +68,18 @@ export default function HeaderMenuLogout() {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
+        onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
         <Typography align='center'>
           {username}
         </Typography>
         <IconButton
-          onClick={handleLogout}>
+          onClick={handleClickOpenConfirmationDialog}>
           <MenuItem>Logout</MenuItem>
         </IconButton>
       </Menu>
+      <ConfirmationDialog confirm={handleLogout} handleCloseConfirmationDialog={handleCloseConfirmationDialog} openConfirmationDialog={openConfirmationDialog} />
     </div>
   );
 }

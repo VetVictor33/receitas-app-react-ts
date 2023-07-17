@@ -7,22 +7,22 @@ import useUser from '../../../hook/useUser';
 import Api from '../../../services/API/Api';
 import { Recipe } from '../../../types/Recipes';
 import { Comment } from '../../../types/Comments';
-import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';
+import ConfirmationDialog from '../../ConfirmationDialog';
 
 
 export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: Recipe['id'], commentId: Comment['id'] }) {
   const { recipes, setRecipes } = useUser()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
+  const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
 
-  const handleClickOpenDeleteConfirmationDialog = () => {
-    setOpenDeleteConfirmationDialog(true);
+  const handleClickOpenConfirmationDialog = () => {
+    setOpenConfirmationDialog(true);
     handleMenuClose()
   };
 
-  const handleCloseDeleteConfirmationDialog = () => {
-    setOpenDeleteConfirmationDialog(false);
+  const handleCloseConfirmationDialog = () => {
+    setOpenConfirmationDialog(false);
   };
 
   const open = Boolean(anchorEl);
@@ -68,12 +68,12 @@ export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: R
         onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClickOpenDeleteConfirmationDialog}>Apagar comentário</MenuItem>
+        <MenuItem onClick={handleClickOpenConfirmationDialog}>Apagar comentário</MenuItem>
       </Menu>
-      <DeleteConfirmationDialog
-        openDeleteConfirmationDialog={openDeleteConfirmationDialog}
-        handleCloseDeleteConfirmationDialog={handleCloseDeleteConfirmationDialog}
-        confirmDelete={handleDelete}
+      <ConfirmationDialog
+        openConfirmationDialog={openConfirmationDialog}
+        handleCloseConfirmationDialog={handleCloseConfirmationDialog}
+        confirm={handleDelete}
       />
     </div>
   );

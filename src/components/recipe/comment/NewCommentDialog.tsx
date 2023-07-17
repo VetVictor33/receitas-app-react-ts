@@ -49,7 +49,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
 
   return (
     <div>
-      <Dialog open={openNewCommentDialog} onClose={handleCloseNewCommentDialog}>
+      <Dialog open={openNewCommentDialog} onClose={handleCloseNewCommentDialog} fullWidth={'50%'}>
         <DialogTitle>Adicionar commentário</DialogTitle>
         <DialogContent>
           <DialogContentText>
