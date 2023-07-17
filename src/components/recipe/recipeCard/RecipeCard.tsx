@@ -124,12 +124,18 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
           <IconButton aria-label="add to favorites"
             onClick={handleFavorite}
           >
-            <StarIcon /> {recipe.metrics.favorites.totalFavorites}
+            <StarIcon sx={recipe.metrics.favorited && { color: "#ffbe26" }} />
+            <Typography position={'absolute'} color={'white'} fontSize={'12px'}>
+              {recipe.metrics.favorites.totalFavorites}
+            </Typography>
           </IconButton>
           <IconButton aria-label="like"
             onClick={handleLike}
           >
-            <FavoriteIcon /> {recipe.metrics.likes.totalLikes}
+            <FavoriteIcon sx={recipe.metrics.liked && { color: "#ff0505" }} />
+            <Typography position={'absolute'} color={'white'} fontSize={'12px'}>
+              {recipe.metrics.likes.totalLikes}
+            </Typography>
           </IconButton>
         </CardActions>
         <IconButton

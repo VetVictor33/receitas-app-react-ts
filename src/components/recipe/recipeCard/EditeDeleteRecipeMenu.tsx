@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Recipe } from '../../../types/Recipes';
 import Api from '../../../services/API/api';
 import useUser from '../../../hook/useUser';
-import NewRecipeModal from '../../header/NewRecipeModal';
+import RecipeModal from '../../header/RecipeModal';
 import DeleteConfirmationDialog from '../../DeleteConfirmationDialog';
 
 
@@ -68,7 +68,7 @@ export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
         <MenuItem onClick={handleModalOpen}>Editar receita</MenuItem>
         <MenuItem onClick={handleClickOpenDeleteConfirmationDialog}>Apagar receita</MenuItem>
       </Menu>
-      <NewRecipeModal
+      <RecipeModal
         incomeRecipe={recipe}
         handleModalClose={handleModalClose}
         modalOpen={modalOpen} />

@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <ValidateToken route='/' />,
         children: [
           {
-            path: '/dashboard',
+            path: '/dashboard/home',
             element: < Dashboard />
           },
           {

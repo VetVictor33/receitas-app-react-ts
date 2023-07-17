@@ -1,14 +1,15 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import Fade from '@mui/material/Fade';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
-import { useNavigate, Link, NavLink } from 'react-router-dom';
-import NewRecipeModal from './NewRecipeModal';
+import { NavLink } from 'react-router-dom';
+import RecipeModal from './RecipeModal';
+
 
 export default function HeaderMenuOptions() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const navigateTo = useNavigate()
   const menuOpen = Boolean(anchorEl);
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -28,7 +29,10 @@ export default function HeaderMenuOptions() {
 
   return (
     <div>
-      <MenuIcon onClick={handleMenuClick}/>
+      <IconButton
+        onClick={handleMenuClick}>
+        <MenuIcon />
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{
@@ -39,27 +43,28 @@ export default function HeaderMenuOptions() {
         onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
-            <NavLink to={'/dashboard'} onClick={handleMenuClose}>
+        <NavLink to={'/dashboard/home'} onClick={handleMenuClose}>
           <MenuItem>
-              Dashboard
+            Dashboard
           </MenuItem>
-            </NavLink>
-            <NavLink to={'/dashboard/minhas-receitas'} onClick={handleMenuClose}>
+        </NavLink>
+        <NavLink to={'/dashboard/minhas-receitas'} onClick={handleMenuClose}>
           <MenuItem>
-              Minhas receitas
+            Minhas receitas
           </MenuItem>
-            </NavLink>
-            <NavLink to={'/dashboard/receitas-favoritas'} onClick={handleMenuClose}>
+        </NavLink>
+        <NavLink to={'/dashboard/receitas-favoritas'} onClick={handleMenuClose}>
           <MenuItem>
-              Receitas favoritas
+            Receitas favoritas
           </MenuItem>
-            </NavLink>
-          <MenuItem onClick={handleModalOpen}>Publicar receita</MenuItem >
+        </NavLink>
+        <MenuItem onClick={handleModalOpen}>Publicar receita</MenuItem >
       </Menu>
-      <NewRecipeModal 
+      <RecipeModal
         handleModalClose={handleModalClose}
         modalOpen={modalOpen}
-        />
+        incomeRecipe={undefined}
+      />
     </div>
   );
 }
