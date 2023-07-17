@@ -8,20 +8,8 @@ import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS,
 import { Recipe, newRecipeFromForm } from '../../../types/Recipes';
 import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
+import { AlertStyle, SubmitButtonStyle } from '../../../types/FormTypes';
 
-
-type SubmitButtonStyle = {
-  'secondary': string,
-  'success': string,
-  'error': string
-}
-
-type AlertStyle = {
-  'error': string,
-  'warning': string,
-  'info': string,
-  'success': string
-}
 
 export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | undefined }) {
   const { recipes, setRecipes } = useUser()!

@@ -4,12 +4,15 @@ export default function ErrorPage() {
   const error: any = useRouteError();
 
   return (
-    <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
+    <div id="error-page" style={{ textAlign: 'center' }}>
+      <hr />
+      <h2>Oops!</h2>
+      <h3>Ocorreu um erro</h3>
+      <a href="/dashboard/home">Retornar</a>
+      {/* <p>
         <i>{error.statusText || error.message}</i>
-      </p>
-    </div>
+      </p> */}
+      <hr />
+    </div >
   );
 }

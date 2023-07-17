@@ -6,10 +6,6 @@ import { UserLogin, UserSignup } from "../../types/User";
 import axios from "../axios/axios";
 
 export default abstract class Api {
-    private static token = getItem('token')!
-    private static headers = { 'Authorization': `Bearer ${this.token}` }
-    private static formdataHeaders = { 'Content-Type': 'multipart/form-data', ...this.headers }
-
     public static async signupAttempt(data: UserSignup) {
         await axios.post('/users/sign-up', { ...data })
     }
@@ -20,60 +16,80 @@ export default abstract class Api {
     }
 
     public static async logOut() {
-        const response = await axios.post('/users/logout', undefined, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const response = await axios.post('/users/logout', undefined, { headers })
         console.log(response)
     }
 
     public static async getAllRecipes() {
-        const { data }: { data: IpaginatedResonse } = await axios.get('/recipes', { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const { data }: { data: IpaginatedResonse } = await axios.get('/recipes', { headers })
         return data
     }
 
     public static async paginatedRecipes(pageNumber: number, recipePerPage: number) {
-        const { data }: { data: IpaginatedResonse } = await axios.post('/paginate', { pageNumber, recipePerPage }, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const { data }: { data: IpaginatedResonse } = await axios.post('/paginate', { pageNumber, recipePerPage }, { headers })
         return data
     }
 
     public static async getUserRecipes(pageNumber: number, recipePerPage: number) {
-        const { data }: { data: IpaginatedResonse } = await axios.post('/user-recipes', { pageNumber, recipePerPage }, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const { data }: { data: IpaginatedResonse } = await axios.post('/user-recipes', { pageNumber, recipePerPage }, { headers })
         return data
     }
 
     public static async getUserFavoriteRecipes(pageNumber: number, recipePerPage: number) {
-        const { data }: { data: IpaginatedResonse } = await axios.post('/user-favorite-recipes', { pageNumber, recipePerPage }, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const { data }: { data: IpaginatedResonse } = await axios.post('/user-favorite-recipes', { pageNumber, recipePerPage }, { headers })
         return data
     }
 
     public static async createRecipe(formData: FormData) {
-        const { data }: { data: Recipe } = await axios.post('/recipes', formData, { headers: this.formdataHeaders })
+        const headers = this.getMultipartFormHeaders(getItem('token'))
+        const { data }: { data: Recipe } = await axios.post('/recipes', formData, { headers })
         return data
     }
 
     public static async updateRecipe(formData: FormData, recipeId: number) {
-        const { data }: { data: Recipe } = await axios.put(`/recipes/${recipeId}`, formData, { headers: this.formdataHeaders })
+        const headers = this.getMultipartFormHeaders(getItem('token'))
+        const { data }: { data: Recipe } = await axios.put(`/recipes/${recipeId}`, formData, { headers })
         return data
     }
 
     public static async likeRecipe(id: number) {
-        await axios.post(`/like/${id}`, undefined, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        await axios.post(`/like/${id}`, undefined, { headers: headers })
     }
 
     public static async favoriteRecipe(id: number) {
-        await axios.post(`/favorite/${id}`, undefined, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        await axios.post(`/favorite/${id}`, undefined, { headers: headers })
     }
 
     public static async deleteRecipe(id: number) {
-        await axios.delete(`/recipes/${id}`, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        await axios.delete(`/recipes/${id}`, { headers: headers })
     }
 
     public static async addComment(recipeId: Recipe['id'], content: string) {
-        const { data }: { data: Comment } = await axios.post(`/comment/${recipeId}`, { content }, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        const { data }: { data: Comment } = await axios.post(`/comment/${recipeId}`, { content }, { headers })
         return data
     }
 
     public static async removeComment(recipeId: Recipe['id'],
         commentId: Recipe['metrics']['comments'][number]['id']) {
-        await axios.delete(`/comment/${recipeId}/${commentId}`, { headers: this.headers })
+        const headers = this.getHeaders(getItem('token'))
+        await axios.delete(`/comment/${recipeId}/${commentId}`, { headers: headers })
+    }
+
+    private static getHeaders(token: string) {
+        return { 'Authorization': `Bearer ${token}` }
+    }
+
+    private static getMultipartFormHeaders(token: string) {
+        return { 'Content-Type': 'multipart/form-data', 'Authorization': `Bearer ${token}` }
     }
 
 }

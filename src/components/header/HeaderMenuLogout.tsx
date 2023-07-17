@@ -44,8 +44,8 @@ export default function HeaderMenuLogout() {
     try {
       await Api.logOut()
     } catch (error) {
-      destroyStorage()
     } finally {
+      destroyStorage()
       navigateTo('/')
       setLogginOut(false)
     }

@@ -15,3 +15,8 @@ export function getFirstLetter(string: string) {
 export function normalizeString(string: string) {
   return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
+
+export function verifyEmailFormat(email: string) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}

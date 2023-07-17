@@ -2,7 +2,6 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { ChangeEvent, useEffect, useState } from 'react'
 import useUser from '../../hook/useUser'
-import Api from '../../services/API/Api'
 import RecipeCard from './recipeCard/RecipeCard'
 import { RecipePaginationFetchMethod } from '../../types/SwitchTypes'
 import { Grid } from '@mui/material'
@@ -10,6 +9,7 @@ import Loadagin from '../Loading'
 import { destroyStorage } from '../../storage'
 import { useNavigate } from 'react-router-dom'
 import EmptyContentPage from '../EmptyContentPage'
+import ApiHelper from '../../services/API/ApiHelper'
 
 export default function RecipePagination({ method }: { method: RecipePaginationFetchMethod }) {
   const { recipes, setRecipes, currentRecipesPage, setCurrentRecipesPage } = useUser()
@@ -29,13 +29,13 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
         let data;
         switch (method) {
           case 'dashboard':
-            data = await Api.paginatedRecipes(currentRecipesPage, 5)
+            data = await ApiHelper.fetchPaginatedRecipes('dashboard', currentRecipesPage)
             break
           case 'users':
-            data = await Api.getUserRecipes(currentRecipesPage, 5)
+            data = await ApiHelper.fetchPaginatedRecipes('users', currentRecipesPage)
             break
           case 'favorites':
-            data = await Api.getUserFavoriteRecipes(currentRecipesPage, 5)
+            data = await ApiHelper.fetchPaginatedRecipes('favorites', currentRecipesPage)
             break
         }
         const { allRecipes, totalPages } = data
@@ -43,6 +43,7 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
         setTotalPages(totalPages)
         setLoading(false)
       } catch (error) {
+        console.log(error)
         destroyStorage()
         navigateTo('/')
       }

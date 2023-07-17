@@ -11,6 +11,7 @@ import UserFavoriteRecipes from './pages/UserFavoriteRecipes.tsx';
 import ValidateToken from './components/ValidateToken.tsx';
 import UserProvider from './context/UserContext.tsx';
 import UserRecipes from './pages/UserRecipes.tsx';
+import PageNotFound from './pages/PageNotFound.tsx';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,12 @@ const router = createBrowserRouter([
             element: <UserFavoriteRecipes />
           }
         ]
+      },
+      {
+        path: '*',
+        element: <PageNotFound />,
       }
+
     ]
   }
 ]);

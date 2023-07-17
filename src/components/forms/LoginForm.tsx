@@ -1,61 +1,134 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { INVALID_EMAIL, REQUIRED_DATA } from '../../utils/globalErrorMessages';
-import { Button } from '@mui/material';
-import Api from '../../services/API/Api';
-import { useNavigate } from 'react-router-dom'
-import { setItem } from '../../storage';
+import { Box, Button, Input, InputLabel } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import FormControl from '@mui/material/FormControl';
+import Stack from '@mui/material/Stack';
+import { ChangeEvent, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import { useLocalStorage } from 'react-use';
+import Api from '../../services/API/Api';
+import { setItem } from '../../storage';
+import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
+import Typography from '@mui/material/Typography';
+import { verifyEmailFormat } from '../../utils/formatUtils';
 
+
+
+export const formStyle = {
+  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+  gap: '10px', width: '380px',
+  background: 'aliceblue', padding: '20px', borderRadius: '5px'
+}
+
+export const parentFormStyle = { height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
 
 export default function LoginForm() {
   const navigateTo = useNavigate()
-  const { setUser } = useUser()!
-  return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validate={values => {
-        const errors = {};
-        if (!values.email) {
-          errors.email = REQUIRED_DATA;
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = INVALID_EMAIL;
-        }
-        if (!values.password) {
-          errors.password = REQUIRED_DATA
-        }
-        return errors;
-      }}
-      onSubmit={async (values, { setSubmitting }) => {
-        try {
-          const { token, user } = await Api.loginAttempt(values)
-          setSubmitting(false)
-          setItem('token', token.token)
-          setItem('username', user.username)
-          setUser(user)
-          navigateTo('/dashboard')
-        } catch (error) {
-          console.log(error)
-          console.log(error.response.data.errors)
-        }
-      }}
-    >
-      {({ isSubmitting }) => (
-        <Form>
-          <Field type="email" name="email" />
-          <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" />
-          <ErrorMessage name="password" component="div" />
+  const { setUser } = useUser()
 
-          <Button variant="contained"
-            type='submit'
-            disabled={isSubmitting}>
-            Enviar</Button>
-          <a href="/sign-up">Não tem conta? cadastre-se aqui</a>
-        </Form>
-      )}
-    </Formik>
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const [emailError, setEmailError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+
+  const hasAnyFeedbackRef = useRef(false)
+  const [feedBackMessage, setFeedbackMessage] = useState<string>('')
+
+  const [submitButtonStyle, setSubmitButtonStyle] = useState<keyof SubmitButtonStyle>('secondary')
+  const [alertStyle, setAlertStyle] = useState<keyof AlertStyle>('warning')
+
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    hasAnyFeedbackRef.current = false
+    switch (name) {
+      case 'email':
+        setEmail(value)
+        setEmailError(false)
+        break
+      case 'password':
+        setPassword(value)
+        setPasswordError(false)
+        break
+    }
+
+    if (!emailError && !passwordError) {
+      setSubmitButtonStyle('secondary')
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!email) {
+      setEmailError(true)
+      hasAnyFeedbackRef.current = true
+    }
+
+    if (!verifyEmailFormat(email)) {
+      setEmailError(true)
+      hasAnyFeedbackRef.current = true
+    }
+
+    if (!password) {
+      setPasswordError(true)
+      hasAnyFeedbackRef.current = true
+    }
+
+
+    if (hasAnyFeedbackRef.current) {
+      setSubmitButtonStyle('error')
+      if (!verifyEmailFormat(email)) {
+        setFeedbackMessage('Formado de email inválido')
+      } else {
+        setFeedbackMessage('Preencha todos os campos')
+      }
+      setAlertStyle('warning')
+      return
+    }
+
+    try {
+      const data = { email, password }
+      const { token, user } = await Api.loginAttempt(data)
+      setItem('token', token.token)
+      setItem('username', user.username)
+      setUser(user)
+      navigateTo('/dashboard/home')
+
+    } catch (error) {
+      console.log(error)
+      hasAnyFeedbackRef.current = true
+      setFeedbackMessage('Algo deu errado')
+      setAlertStyle('error')
+      setSubmitButtonStyle('error')
+    }
+  }
+
+  return (
+    <div style={parentFormStyle}>
+      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
+        style={formStyle}>
+        <Typography variant='h5' color={'#000'}>Receitas App</Typography>
+        <Typography variant='h7' color={'#000'}>Login</Typography>
+        <FormControl sx={{ width: '90%' }}>
+          <InputLabel htmlFor="my-input">Email</InputLabel>
+          <Input error={emailError} name="email" type='email' value={email} aria-describedby="my-helper-text" onChange={handleInputChange} />
+        </FormControl>
+        <FormControl sx={{ width: '90%' }}>
+          <InputLabel htmlFor="my-input">Password</InputLabel>
+          <Input error={passwordError} name="password" type='password' value={password} aria-describedby="my-helper-text" onChange={handleInputChange} />
+        </FormControl>
+
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          {hasAnyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
+          <Button color={submitButtonStyle} type='submit'>
+            Entrar
+          </Button>
+          <a href="/sign-up">Ainda não tem cadastro?</a>
+        </Stack>
+      </Box>
+    </div>
   )
 }
