@@ -7,6 +7,7 @@ import ApiHelper from '../../services/API/apiHelper';
 import { Recipe } from '../../types/Recipes';
 import { normalizeString } from '../../utils/formatUtils';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { RecipePaginationFetchMethod } from '../../types/SwitchTypes';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -81,21 +82,27 @@ export default function HeaderSearch() {
   }
 
   useEffect(() => {
-    async function fetchRecipes(page: number) {
-      const { allRecipes: allPaginatedRecipes } = await ApiHelper.fetchPaginatedRecipes('dashboard', page)
-      const { allRecipes } = await ApiHelper.fetchAllRecipes()
+    async function fetchRecipes(method: RecipePaginationFetchMethod, page: number) {
+      const { allRecipes: allPaginatedRecipes } = await ApiHelper.fetchPaginatedRecipes(method, page)
       setRecipes(allPaginatedRecipes)
-      setAllPagesRecipes(allRecipes)
+      if (method === 'dashboard') {
+        const { allRecipes } = await ApiHelper.fetchAllRecipes()
+        setAllPagesRecipes(allRecipes)
+      }
     }
 
     if (location.pathname !== '/dashboard/home') {
       if (currentRecipesPage !== 1) {
         setCurrentRecipesPage(1)
-        fetchRecipes(1)
+        if (location.pathname === '/dashboard/minhas-receitas') {
+          fetchRecipes('users', 1)
+        } else {
+          fetchRecipes('favorites', 1)
+        }
       }
       setInputValue('')
     } else {
-      fetchRecipes(currentRecipesPage)
+      fetchRecipes('dashboard', currentRecipesPage)
     }
 
   }, [refreshRecipes, location.pathname])

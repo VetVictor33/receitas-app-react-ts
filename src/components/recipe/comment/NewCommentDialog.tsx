@@ -18,10 +18,12 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
   const [content, setContent] = useState('')
   const [commentError, setCommentError] = useState(false)
   const [alert, setAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
 
   const handleNewCommentSubmit = async () => {
     if (!content) {
       setCommentError(true)
+      setAlertMessage('Escreva algo')
       return
     }
 
@@ -35,10 +37,16 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
       })
       setRecipes(localRecipes)
       setAlert(true)
+      setAlertMessage("Comentário adicionado com sucesso")
       setContent('')
 
     } catch (error) {
       setCommentError(true)
+      if (error.response.data.errors[0]) {
+        setAlertMessage(error.response.data.errors[0].message)
+      } else {
+        setAlertMessage('Algo deu errado')
+      }
     }
   }
   const handleContentChange = (e) => {
@@ -70,7 +78,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
             error={commentError}
           />
         </DialogContent>
-        {alert && <Alert severity='success'>Comentário adicionado</Alert>}
+        {(alert || commentError) && <Alert severity={commentError ? 'error' : 'success'}>{alertMessage}</Alert>}
         <DialogActions>
           <Button onClick={handleCloseNewCommentDialog}>Cancel</Button>
           <Button onClick={handleNewCommentSubmit}>Comentar</Button>
