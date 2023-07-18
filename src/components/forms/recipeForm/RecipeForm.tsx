@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS, HINT_RECIPE_NAME } from '../../../utils/formHints';
 import { Recipe, newRecipeFromForm } from '../../../@types/Recipes';
-import AdonisjsApi from '../../../services/api/api';
+import AdonisjsApi from '../../../services/adonisjs/adonisjs';
 import useUser from '../../../hook/useUser';
 import { AlertStyle, SubmitButtonStyle } from '../../../@types/FormTypes';
 

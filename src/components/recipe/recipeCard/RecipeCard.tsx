@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import AdonisjsApi from '../../../services/api/api';
+import AdonisjsApi from '../../../services/adonisjs/adonisjs';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../@types/Recipes';
 import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';

@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Recipe } from '../../../@types/Recipes';
-import AdonisjsApi from '../../../services/api/api';
+import AdonisjsApi from '../../../services/adonisjs/adonisjs';
 import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
 import ConfirmationDialog from '../../ConfirmationDialog';

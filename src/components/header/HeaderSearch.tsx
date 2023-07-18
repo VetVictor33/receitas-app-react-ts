@@ -4,7 +4,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import ApiHelper from '../../services/api/ApiHelper';
+import ApiHelper from '../../services/adonisjs/adonisjsHelper';
 import { Recipe } from '../../@types/Recipes';
 import { RecipePaginationFetchMethod } from '../../@types/SwitchTypes';
 import { normalizeString } from '../../utils/formatUtils';
