@@ -8,7 +8,7 @@ import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
 import ConfirmationDialog from '../../ConfirmationDialog';
 import IconButton from '@mui/material/IconButton';
-import { deleteRecipe } from '../../../services/api/api';
+import { deleteRecipe } from '../../../services/adonisjs/requests';
 
 
 

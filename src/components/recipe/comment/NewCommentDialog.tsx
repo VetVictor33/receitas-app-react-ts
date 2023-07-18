@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Recipe } from '../../../@types/Recipes';
 import useUser from '../../../hook/useUser';
 import { Alert } from '@mui/material';
-import { addComment } from '../../../services/api/api';
+import { addComment } from '../../../services/adonisjs/requests';
 
 export default function NewCommentDialog({ recipeId, openNewCommentDialog, handleCloseNewCommentDialog }:
   { recipeId: Recipe['id'], openNewCommentDialog: boolean, handleCloseNewCommentDialog: () => void }) {

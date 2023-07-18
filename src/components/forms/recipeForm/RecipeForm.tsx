@@ -8,7 +8,7 @@ import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS,
 import { Recipe, newRecipeFromForm } from '../../../@types/Recipes';
 import useUser from '../../../hook/useUser';
 import { AlertStyle, SubmitButtonStyle } from '../../../@types/FormTypes';
-import { createRecipe, updateRecipe } from '../../../services/api/api';
+import { createRecipe, updateRecipe } from '../../../services/adonisjs/requests';
 
 
 export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | undefined }) {

@@ -10,7 +10,7 @@ import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { formStyle, parentFormStyle } from '../../style/formStyles'
-import { loginAttempt } from '../../services/api/api';
+import { loginAttempt } from '../../services/adonisjs/requests';
 
 
 export default function LoginForm() {

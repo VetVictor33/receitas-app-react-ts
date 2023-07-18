@@ -7,7 +7,7 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { formStyle, parentFormStyle } from '../../style/formStyles';
 import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
-import { signupAttempt } from '../../services/api/api';
+import { signupAttempt } from '../../services/adonisjs/requests';
 
 
 export default function LoginForm() {

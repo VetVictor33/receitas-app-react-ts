@@ -7,7 +7,7 @@ import useUser from '../../hook/useUser';
 import { Recipe } from '../../@types/Recipes';
 import { RecipePaginationFetchMethod } from '../../@types/SwitchTypes';
 import { normalizeString } from '../../utils/formatUtils';
-import { fetchAllRecipes, fetchPaginatedRecipes } from '../../services/api/ApiHelper';
+import { fetchAllRecipes, fetchPaginatedRecipes } from '../../services/adonisjs/requestsHelper';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

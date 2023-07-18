@@ -13,7 +13,7 @@ import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import { Recipe } from '../../../@types/Recipes';
 import useUser from '../../../hook/useUser';
-import { favoriteRecipe, likeRecipe } from '../../../services/api/api';
+import { favoriteRecipe, likeRecipe } from '../../../services/adonisjs/requests';
 import { getItem } from '../../../storage';
 import { formatDate, getFirstLetter } from '../../../utils/formatUtils';
 import RecipeDetailsDialog from '../RecipeDetailsDialog';

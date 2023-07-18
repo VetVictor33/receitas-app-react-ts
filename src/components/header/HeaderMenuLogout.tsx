@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import { Typography } from '@mui/material';
 import ConfirmationDialog from '../ConfirmationDialog';
 import useUser from '../../hook/useUser';
-import { logOut } from '../../services/api/api';
+import { logOut } from '../../services/adonisjs/requests';
 
 
 export default function HeaderMenuLogout() {

@@ -9,7 +9,7 @@ import { RecipePaginationFetchMethod } from '../../@types/SwitchTypes'
 import EmptyContentPage from '../EmptyContentPage'
 import Loadagin from '../Loading'
 import RecipeCard from './recipeCard/RecipeCard'
-import { fetchPaginatedRecipes } from '../../services/api/ApiHelper'
+import { fetchPaginatedRecipes } from '../../services/adonisjs/requestsHelper'
 
 export default function RecipePagination({ method }: { method: RecipePaginationFetchMethod }) {
   const { recipes, setRecipes, currentRecipesPage, setCurrentRecipesPage } = useUser()

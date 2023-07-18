@@ -1,5 +1,5 @@
 import { RecipePaginationFetchMethod } from "../../@types/SwitchTypes"
-import { getAllRecipes, getUserFavoriteRecipes, getUserRecipes, paginatedRecipes } from "./api";
+import { getAllRecipes, getUserFavoriteRecipes, getUserRecipes, paginatedRecipes } from "./requests";
 
 
 export async function fetchPaginatedRecipes(method: RecipePaginationFetchMethod, currentPage: number) {
