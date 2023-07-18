@@ -1,15 +1,15 @@
+import { Grid } from '@mui/material'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import { ChangeEvent, useEffect, useState } from 'react'
-import useUser from '../../hook/useUser'
-import RecipeCard from './recipeCard/RecipeCard'
-import { RecipePaginationFetchMethod } from '../../types/SwitchTypes'
-import { Grid } from '@mui/material'
-import Loadagin from '../Loading'
-import { destroyStorage } from '../../storage'
 import { useNavigate } from 'react-router-dom'
-import EmptyContentPage from '../EmptyContentPage'
+import useUser from '../../hook/useUser'
 import ApiHelper from '../../services/API/ApiHelper'
+import { destroyStorage } from '../../storage'
+import { RecipePaginationFetchMethod } from '../../types/SwitchTypes'
+import EmptyContentPage from '../EmptyContentPage'
+import Loadagin from '../Loading'
+import RecipeCard from './recipeCard/RecipeCard'
 
 export default function RecipePagination({ method }: { method: RecipePaginationFetchMethod }) {
   const { recipes, setRecipes, currentRecipesPage, setCurrentRecipesPage } = useUser()
@@ -17,7 +17,7 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
   const [loading, setLoading] = useState(true)
 
   const navigateTo = useNavigate()
-
+  //@ts-ignore
   const handlePageChange = (e: ChangeEvent<HTMLInputElement>, value: number) => {
     if (value != currentRecipesPage) {
       setCurrentRecipesPage(value)
@@ -47,7 +47,7 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
         navigateTo('/')
       }
     }
-    fetchRecipes()
+    void fetchRecipes()
   }, [currentRecipesPage])
 
   return (
@@ -71,6 +71,7 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
       {totalPages > 1 &&
         <Stack spacing={2}>
           <Pagination count={totalPages} page={currentRecipesPage} sx={{ margin: 'auto' }}
+            //@ts-ignore
             color="secondary" onChange={handlePageChange} />
         </Stack>
       }

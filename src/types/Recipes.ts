@@ -33,6 +33,6 @@ export interface newRecipeFromForm {
   categoryName: string,
   title: string,
   description: string,
-  ingredients: string,
+  ingredients: string | string[],
   image: File
 }

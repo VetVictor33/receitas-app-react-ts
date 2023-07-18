@@ -8,6 +8,8 @@ import Api from '../../../services/API/Api';
 import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
 import ConfirmationDialog from '../../ConfirmationDialog';
+import IconButton from '@mui/material/IconButton';
+
 
 
 export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
@@ -54,7 +56,10 @@ export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
 
   return (
     <div>
-      <MoreVertIcon onClick={handleClick} />
+      <IconButton
+        onClick={handleClick} >
+        <MoreVertIcon />
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{

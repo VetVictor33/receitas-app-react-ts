@@ -125,7 +125,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
           <IconButton aria-label="add to favorites"
             onClick={handleFavorite}
           >
-            <StarIcon sx={recipe.metrics.favorited && { color: "#ffbe26" }} />
+            <StarIcon sx={recipe.metrics.favorited ? { color: "#ffbe26" } : { color: '#000' }} />
             <Typography position={'absolute'} color={'white'} fontSize={'12px'}>
               {recipe.metrics.favorites.totalFavorites}
             </Typography>

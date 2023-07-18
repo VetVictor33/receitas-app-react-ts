@@ -1,15 +1,18 @@
 export const getItem = (key: string) => {
-  return localStorage.getItem(key)
+  const response = localStorage.getItem(key)
+  if (!response) throw new Error('')
+  return response
 }
 
-export const setItem = (key:string, value: string) => {
+export const setItem = (key: string, value: string) => {
   localStorage.setItem(key, value)
+
 }
 
 export const destroyItem = (key: string) => {
   localStorage.removeItem(key)
 }
 
-export const destroyStorage =()=> {
+export const destroyStorage = () => {
   localStorage.clear()
 }

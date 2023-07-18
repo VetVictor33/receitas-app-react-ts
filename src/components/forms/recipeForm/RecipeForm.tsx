@@ -59,15 +59,18 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
         setDescriptionError(false)
         break
       case 'image':
-        const file = e.target.files[0]
-        setImage(file)
-        setImageError(false)
-        reader.onload = (ev) => {
-          previewImage.current.src = ev.target.result
-          previewImage.current.style.display = 'block'
+        { // @ts-ignore
+          const file = e.target.files[0]
+          setImage(file)
+          setImageError(false)
+          reader.onload = (ev: ProgressEvent<FileReader>) => {
+            // @ts-ignore
+            previewImage.current.src = ev.target.result
+            // @ts-ignore
+            previewImage.current.style.display = 'block'
+          }
+          reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(file);
-
         break
     }
 
@@ -123,7 +126,7 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       setSubmitButtonStyle('success')
 
       let localRecipes: Recipe[];
-      if (editing) {
+      if (editing && incomeRecipe) {
         const filteredRecipes = recipes.filter(item => item.id !== incomeRecipe.id)
         localRecipes = [newRecipe, ...filteredRecipes]
         setFeedbackMessage('Receita atualizada com sucesso!')
@@ -135,9 +138,12 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       cleanForm()
     } catch (error) {
       hasAnyFeedbackRef.current = true
+      // @ts-ignore
       if (error.response.data.errors) {
+        // @ts-ignore
         setFeedbackMessage(error.response.data.errors[0].message)
       } else {
+        // @ts-ignore
         setFeedbackMessage(error.response.data.message)
       }
       setAlertStyle('error')
@@ -150,10 +156,10 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
     formData.append('title', data.title)
     formData.append('categoryName', data.categoryName)
     formData.append('description', data.description)
-    formData.append('ingredients', data.ingredients)
+    formData.append('ingredients', data.ingredients as string)
     formData.append('image', data.image)
     let response;
-    if (editing) {
+    if (editing && incomeRecipe) {
       response = await Api.updateRecipe(formData, incomeRecipe.id)
     } else {
       response = await Api.createRecipe(formData)
@@ -169,12 +175,14 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
   }
 
   useEffect(() => {
-    if (editing) {
+    if (editing && incomeRecipe) {
       setTitle(incomeRecipe.title)
       setCategoryName(incomeRecipe.category)
       setIngredients(incomeRecipe.ingredients.map(item => item.name))
       setDescription(incomeRecipe.description)
-      previewImage.current.src = import.meta.env.VITE_BASE_URL + incomeRecipe.imageUrl
+      // @ts-ignore
+      previewImage.current.src = `${import.meta.env.VITE_BASE_URL}${incomeRecipe.imageUrl}`
+      // @ts-ignore
       previewImage.current.style.display = 'block';
     }
   }, [])
@@ -216,6 +224,7 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
 
       <FormControl>
         <Input error={imageError} type='file' name="image" onChange={handleInputChange} />
+        {/* @ts-ignore */}
         <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{ display: 'none', maxWidth: '100%' }} />
       </FormControl>
 

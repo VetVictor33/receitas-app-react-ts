@@ -42,14 +42,16 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
 
     } catch (error) {
       setCommentError(true)
+      //@ts-ignore
       if (error.response.data.errors[0]) {
+        //@ts-ignore
         setAlertMessage(error.response.data.errors[0].message)
       } else {
         setAlertMessage('Algo deu errado')
       }
     }
   }
-  const handleContentChange = (e) => {
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentError(false)
     setAlert(false)
     setContent(e.target.value)
@@ -57,7 +59,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
 
   return (
     <div>
-      <Dialog open={openNewCommentDialog} onClose={handleCloseNewCommentDialog} fullWidth={'50%'}>
+      <Dialog open={openNewCommentDialog} onClose={handleCloseNewCommentDialog} sx={{ width: '50%' }}>
         <DialogTitle>Adicionar commentário</DialogTitle>
         <DialogContent>
           <DialogContentText>

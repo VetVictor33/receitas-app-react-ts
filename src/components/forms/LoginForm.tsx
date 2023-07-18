@@ -10,16 +10,7 @@ import { setItem } from '../../storage';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
-
-
-
-export const formStyle = {
-  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-  gap: '10px', width: '380px',
-  background: 'aliceblue', padding: '20px', borderRadius: '5px'
-}
-
-export const parentFormStyle = { height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }
+import { formStyle, parentFormStyle } from '../../styles/formStyles'
 
 export default function LoginForm() {
   const navigateTo = useNavigate()
@@ -98,9 +89,12 @@ export default function LoginForm() {
       navigateTo('/dashboard/home')
     } catch (error) {
       hasAnyFeedbackRef.current = true
+      //@ts-ignore
       if (error.response.data.errors) {
+        //@ts-ignore
         setFeedbackMessage(error.response.data.errors[0].message)
       } else {
+        //@ts-ignore
         setFeedbackMessage(error.response.data.message)
       }
       setAlertStyle('error')
@@ -109,11 +103,12 @@ export default function LoginForm() {
   }
 
   return (
-    <div style={parentFormStyle}>
+    <div style={{ ...parentFormStyle }}>
       <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
-        style={formStyle}>
+        sx={{ ...formStyle }}>
+
         <Typography variant='h5' color={'#000'}>Receitas App</Typography>
-        <Typography variant='h7' color={'#000'}>Login</Typography>
+        <Typography variant='h6' color={'#000'}>Login</Typography>
         <FormControl sx={{ width: '90%' }}>
           <InputLabel htmlFor="my-input">Email</InputLabel>
           <Input error={emailError} name="email" type='email' value={email} aria-describedby="my-helper-text" onChange={handleInputChange} />

@@ -34,7 +34,8 @@ export default abstract class Api {
     }
 
     public static async getUserRecipes(pageNumber: number, recipePerPage: number) {
-        const headers = this.getHeaders(getItem('token'))
+        const headers = this.getHeaders(
+            getItem('token'))
         const { data }: { data: IpaginatedResonse } = await axios.post('/user-recipes', { pageNumber, recipePerPage }, { headers })
         return data
     }
