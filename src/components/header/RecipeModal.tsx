@@ -1,14 +1,10 @@
+import { Dialog } from '@mui/material';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import { Recipe } from '../../@types/Recipes';
 import RecipeForm from '../forms/recipeForm/RecipeForm';
 
 const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: '100%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -19,15 +15,14 @@ export default function RecipeModal({ modalOpen, handleModalClose, incomeRecipe 
   { modalOpen: boolean, handleModalClose: () => void, incomeRecipe: Recipe | undefined }) {
 
   return (
-    <Modal
+    <Dialog
       open={modalOpen}
       onClose={handleModalClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      fullWidth={true}
     >
       <Box sx={style}>
         <RecipeForm incomeRecipe={incomeRecipe} />
       </Box>
-    </Modal>
+    </Dialog>
   );
 }

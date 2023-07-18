@@ -197,13 +197,13 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
     <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
       style={{ display: 'fle', flexDirection: 'column', gap: '10px' }}
     >
-      <FormControl>
+      <FormControl fullWidth>
         <InputLabel htmlFor="my-input">Nome da receita</InputLabel>
         <Input error={titleError} name="title" value={title} onChange={handleInputChange}
           aria-describedby="my-helper-text" />
         <FormHelperText id="my-helper-text">{title ? '' : `${HINT_RECIPE_NAME}`}</FormHelperText>
       </FormControl>
-      <FormControl>
+      <FormControl fullWidth>
         <InputLabel htmlFor="my-input">Categoria</InputLabel>
         <Input error={categoryNameError} name="categoryName" value={categoryName} onChange={handleInputChange}
           aria-describedby="my-helper-text" />
@@ -228,7 +228,7 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
         <FormHelperText id="my-helper-text">{description ? '' : `${HINT_RECIPE_DESCRIPTION}`}</FormHelperText>
       </FormControl>
 
-      <FormControl>
+      <FormControl fullWidth>
         <Input error={imageError} type='file' name="image" onChange={handleInputChange} />
         {/* @ts-ignore */}
         <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{ display: 'none', maxWidth: '100%' }} />
