@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-import Api from '../../services/API/Api';
+import Api from '../../services/api/AdonisjsApi';
 import { destroyStorage, getItem } from '../../storage';
 import IconButton from '@mui/material/IconButton';
 import { Typography } from '@mui/material';

@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import Api from '../../services/API/Api';
+import Api from '../../services/api/AdonisjsApi';
 import { setItem } from '../../storage';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import Typography from '@mui/material/Typography';

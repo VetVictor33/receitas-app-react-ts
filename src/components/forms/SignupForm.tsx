@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ChangeEvent, useRef, useState } from 'react';
-import Api from '../../services/API/Api';
+import Api from '../../services/api/AdonisjsApi';
 import { formStyle, parentFormStyle } from '../../style/formStyles';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
