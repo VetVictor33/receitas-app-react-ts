@@ -4,12 +4,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-import AdonisjsApi from '../../services/api/api';
 import { destroyStorage, getItem } from '../../storage';
 import IconButton from '@mui/material/IconButton';
 import { Typography } from '@mui/material';
 import ConfirmationDialog from '../ConfirmationDialog';
 import useUser from '../../hook/useUser';
+import { logOut } from '../../services/api/api';
 
 
 export default function HeaderMenuLogout() {
@@ -42,7 +42,7 @@ export default function HeaderMenuLogout() {
     if (lockButton) return
     setLockButton(true)
     try {
-      await AdonisjsApi.logOut()
+      await logOut()
     } catch (error) {
     } finally {
       destroyStorage()

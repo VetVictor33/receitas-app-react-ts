@@ -6,9 +6,9 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { HINT_RECIPE_CATEGORY, HINT_RECIPE_DESCRIPTION, HINT_RECIPE_INGREDIENTS, HINT_RECIPE_NAME } from '../../../utils/formHints';
 import { Recipe, newRecipeFromForm } from '../../../@types/Recipes';
-import AdonisjsApi from '../../../services/api/api';
 import useUser from '../../../hook/useUser';
 import { AlertStyle, SubmitButtonStyle } from '../../../@types/FormTypes';
+import { createRecipe, updateRecipe } from '../../../services/api/api';
 
 
 export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | undefined }) {
@@ -166,9 +166,9 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
     formData.append('image', data.image)
     let response;
     if (editing && incomeRecipe) {
-      response = await AdonisjsApi.updateRecipe(formData, incomeRecipe.id)
+      response = await updateRecipe(formData, incomeRecipe.id)
     } else {
-      response = await AdonisjsApi.createRecipe(formData)
+      response = await createRecipe(formData)
     }
     return response
   }

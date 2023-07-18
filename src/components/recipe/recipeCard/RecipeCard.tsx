@@ -1,4 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import OpenInFullIcon from '@mui/icons-material/OpenInFull';
 import StarIcon from '@mui/icons-material/Star';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -10,14 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
-import useUser from '../../../hook/useUser';
-import AdonisjsApi from '../../../services/api/api';
-import { getItem } from '../../../storage';
 import { Recipe } from '../../../@types/Recipes';
-import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';
-import OpenInFullIcon from '@mui/icons-material/OpenInFull';
-import RecipeDetailsDialog from '../RecipeDetailsDialog';
+import useUser from '../../../hook/useUser';
+import { favoriteRecipe, likeRecipe } from '../../../services/api/api';
+import { getItem } from '../../../storage';
 import { formatDate, getFirstLetter } from '../../../utils/formatUtils';
+import RecipeDetailsDialog from '../RecipeDetailsDialog';
+import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';
 
 type metric = 'like' | 'favorite'
 
@@ -42,7 +42,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
     if (lockInteractions) return
     setLockInteractions(true)
     try {
-      await AdonisjsApi.favoriteRecipe(recipe.id)
+      await favoriteRecipe(recipe.id)
       handleMetricChange('favorite')
     } catch (error) {
       console.log(error)
@@ -55,7 +55,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
     if (lockInteractions) return
     setLockInteractions(true)
     try {
-      await AdonisjsApi.likeRecipe(recipe.id)
+      await likeRecipe(recipe.id)
       handleMetricChange('like')
     } catch (error) {
       console.log(error)

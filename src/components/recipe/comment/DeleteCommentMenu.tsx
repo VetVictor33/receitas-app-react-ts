@@ -4,11 +4,11 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import AdonisjsApi from '../../../services/api/api';
 import { Recipe } from '../../../@types/Recipes';
 import { Comment } from '../../../@types/Comments';
 import ConfirmationDialog from '../../ConfirmationDialog';
 import { IconButton } from '@mui/material';
+import { removeComment } from '../../../services/api/api';
 
 
 export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: Recipe['id'], commentId: Comment['id'] }) {
@@ -36,7 +36,7 @@ export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: R
 
   const handleDelete = async () => {
     try {
-      await AdonisjsApi.removeComment(recipeId, commentId)
+      await removeComment(recipeId, commentId)
       const localRecipes: Recipe[] = [...recipes]
       recipes.forEach((recipe, recipeIndex) => {
         if (recipe.id === recipeId) {

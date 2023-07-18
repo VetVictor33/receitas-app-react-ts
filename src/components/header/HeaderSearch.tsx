@@ -4,10 +4,10 @@ import { alpha, styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import ApiHelper from '../../services/api/ApiHelper';
 import { Recipe } from '../../@types/Recipes';
 import { RecipePaginationFetchMethod } from '../../@types/SwitchTypes';
 import { normalizeString } from '../../utils/formatUtils';
+import { fetchAllRecipes, fetchPaginatedRecipes } from '../../services/api/ApiHelper';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -83,10 +83,10 @@ export default function HeaderSearch() {
 
   useEffect(() => {
     async function fetchRecipes(method: RecipePaginationFetchMethod, page: number) {
-      const { allRecipes: allPaginatedRecipes } = await ApiHelper.fetchPaginatedRecipes(method, page)
+      const { allRecipes: allPaginatedRecipes } = await fetchPaginatedRecipes(method, page)
       setRecipes(allPaginatedRecipes)
       if (method === 'dashboard') {
-        const { allRecipes } = await ApiHelper.fetchAllRecipes()
+        const { allRecipes } = await fetchAllRecipes()
         setAllPagesRecipes(allRecipes)
       }
     }

@@ -7,9 +7,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Recipe } from '../../../@types/Recipes';
-import AdonisjsApi from '../../../services/api/api';
 import useUser from '../../../hook/useUser';
 import { Alert } from '@mui/material';
+import { addComment } from '../../../services/api/api';
 
 export default function NewCommentDialog({ recipeId, openNewCommentDialog, handleCloseNewCommentDialog }:
   { recipeId: Recipe['id'], openNewCommentDialog: boolean, handleCloseNewCommentDialog: () => void }) {
@@ -28,7 +28,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
     }
 
     try {
-      const newComment = await AdonisjsApi.addComment(recipeId, content)
+      const newComment = await addComment(recipeId, content)
       const localRecipes: Recipe[] = [...recipes]
       localRecipes.forEach(recipe => {
         if (recipe.id === recipeId) {
