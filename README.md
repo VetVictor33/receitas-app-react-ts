@@ -2,7 +2,7 @@
 
   ```Aplicação para cadastro e compartilhamento de receitas```
 
-Dê uma olhada: https://receitas-app-frontend.onrender.com
+<!-- Dê uma olhada: https://receitas-app-frontend.onrender.com -->
 
   Responsividade para telas de mobile a desktop!
 
