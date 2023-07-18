@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import Api from '../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../services/api/AdonisjsApi';
 import { setItem } from '../../storage';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import Typography from '@mui/material/Typography';
@@ -83,7 +83,7 @@ export default function LoginForm() {
 
     try {
       const data = { email, password }
-      const { token, user } = await Api.loginAttempt(data)
+      const { token, user } = await AdonisjsApi.loginAttempt(data)
       setItem('token', token.token)
       setItem('username', user.username)
       setUser(user)

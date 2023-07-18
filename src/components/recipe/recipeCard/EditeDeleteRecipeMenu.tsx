@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Recipe } from '../../../types/Recipes';
-import Api from '../../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../../services/api/AdonisjsApi';
 import useUser from '../../../hook/useUser';
 import RecipeModal from '../../header/RecipeModal';
 import ConfirmationDialog from '../../ConfirmationDialog';
@@ -44,7 +44,7 @@ export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
 
   const handleDelete = async () => {
     try {
-      await Api.deleteRecipe(recipe.id)
+      await AdonisjsApi.deleteRecipe(recipe.id)
       const localRecipes: Recipe[] = recipes.filter(item => item.id !== recipe.id)
       setRecipes(localRecipes)
     } catch (error) {

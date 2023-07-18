@@ -5,8 +5,9 @@ import { Recipe } from "../../types/Recipes";
 import { UserLogin, UserSignup } from "../../types/User";
 import axios from "../axios/axios";
 
-export default abstract class Api {
-    public static async signupAttempt(data: UserSignup) {
+
+export default abstract class AdonisjsApi {
+    public static async signupAttempt(data: UserSignup): Promise<void> {
         await axios.post('/users/sign-up', { ...data })
     }
 

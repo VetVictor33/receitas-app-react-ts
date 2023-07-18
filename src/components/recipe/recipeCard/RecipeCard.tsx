@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import Api from '../../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../../services/api/AdonisjsApi';
 import { getItem } from '../../../storage';
 import { Recipe } from '../../../types/Recipes';
 import EditeDeleteRecipeMenu from './EditeDeleteRecipeMenu';
@@ -42,7 +42,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
     if (lockInteractions) return
     setLockInteractions(true)
     try {
-      await Api.favoriteRecipe(recipe.id)
+      await AdonisjsApi.favoriteRecipe(recipe.id)
       handleMetricChange('favorite')
     } catch (error) {
       console.log(error)
@@ -55,7 +55,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
     if (lockInteractions) return
     setLockInteractions(true)
     try {
-      await Api.likeRecipe(recipe.id)
+      await AdonisjsApi.likeRecipe(recipe.id)
       handleMetricChange('like')
     } catch (error) {
       console.log(error)

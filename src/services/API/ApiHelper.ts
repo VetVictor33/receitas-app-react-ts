@@ -1,25 +1,25 @@
 import { RecipePaginationFetchMethod } from "../../types/SwitchTypes";
-import Api from "./AdonisjsApi";
+import AdonisjsApi from "./AdonisjsApi";
 
 export default abstract class ApiHelper {
   public static async fetchPaginatedRecipes(method: RecipePaginationFetchMethod, currentPage: number) {
     let data;
     switch (method) {
       case 'dashboard':
-        data = await Api.paginatedRecipes(currentPage, 6)
+        data = await AdonisjsApi.paginatedRecipes(currentPage, 6)
         break
       case 'users':
-        data = await Api.getUserRecipes(currentPage, 6)
+        data = await AdonisjsApi.getUserRecipes(currentPage, 6)
         break
       case 'favorites':
-        data = await Api.getUserFavoriteRecipes(currentPage, 6)
+        data = await AdonisjsApi.getUserFavoriteRecipes(currentPage, 6)
         break
     }
     const { allRecipes, totalPages } = data
     return { allRecipes, totalPages }
   }
   public static async fetchAllRecipes() {
-    const { allRecipes, totalPages } = await Api.getAllRecipes()
+    const { allRecipes, totalPages } = await AdonisjsApi.getAllRecipes()
     return { allRecipes, totalPages }
   }
 }

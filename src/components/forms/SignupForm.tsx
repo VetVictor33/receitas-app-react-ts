@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { ChangeEvent, useRef, useState } from 'react';
-import Api from '../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../services/api/AdonisjsApi';
 import { formStyle, parentFormStyle } from '../../style/formStyles';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
@@ -92,7 +92,7 @@ export default function LoginForm() {
 
     try {
       const data = { username, email, password }
-      await Api.signupAttempt(data)
+      await AdonisjsApi.signupAttempt(data)
 
       hasAnyFeedbackRef.current = true
       setFeedbackMessage('Conta criada com sucesso!')

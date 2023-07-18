@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import Api from '../../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../../services/api/AdonisjsApi';
 import { Recipe } from '../../../types/Recipes';
 import { Comment } from '../../../types/Comments';
 import ConfirmationDialog from '../../ConfirmationDialog';
@@ -36,7 +36,7 @@ export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: R
 
   const handleDelete = async () => {
     try {
-      await Api.removeComment(recipeId, commentId)
+      await AdonisjsApi.removeComment(recipeId, commentId)
       const localRecipes: Recipe[] = [...recipes]
       recipes.forEach((recipe, recipeIndex) => {
         if (recipe.id === recipeId) {
