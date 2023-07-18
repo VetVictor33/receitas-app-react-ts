@@ -5,9 +5,9 @@ import Stack from '@mui/material/Stack';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
-import AdonisjsApi from '../../services/api/AdonisjsApi';
+import AdonisjsApi from '../../services/api/api';
 import { setItem } from '../../storage';
-import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
+import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { formStyle, parentFormStyle } from '../../style/formStyles'

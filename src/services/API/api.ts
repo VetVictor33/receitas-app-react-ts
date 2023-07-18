@@ -1,8 +1,8 @@
 import { getItem } from "../../storage";
-import { IloginAttempt, IpaginatedResonse } from "../../types/ApiReturn";
-import { Comment } from "../../types/Comments";
-import { Recipe } from "../../types/Recipes";
-import { UserLogin, UserSignup } from "../../types/User";
+import { IloginAttempt, IpaginatedResonse } from "../../@types/ApiReturn";
+import { Comment } from "../../@types/Comments";
+import { Recipe } from "../../@types/Recipes";
+import { UserLogin, UserSignup } from "../../@types/User";
 import axios from "../axios/axios";
 
 

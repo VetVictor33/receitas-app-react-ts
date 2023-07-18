@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { Recipe } from '../../types/Recipes';
+import { Recipe } from '../../@types/Recipes';
 import RecipeForm from '../forms/recipeForm/RecipeForm';
 
 const style = {

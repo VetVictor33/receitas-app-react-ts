@@ -1,7 +1,7 @@
-import { IloginAttempt, IpaginatedResonse } from "../../types/ApiReturn";
-import { Comment } from "../../types/Comments";
-import { Recipe } from "../../types/Recipes";
-import { UserLogin, UserSignup } from "../../types/User";
+import { IloginAttempt, IpaginatedResonse } from "./ApiReturn";
+import { Comment } from "./Comments";
+import { Recipe } from "./Recipes";
+import { UserLogin, UserSignup } from "./User";
 
 declare module "api" {
   export default abstract class AdonisjsApi {

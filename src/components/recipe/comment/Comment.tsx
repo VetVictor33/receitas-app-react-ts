@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
-import { Recipe } from "../../../types/Recipes";
+import { Recipe } from "../../../@types/Recipes";
 import { red } from '@mui/material/colors';
 import { formatDate, getFirstLetter } from "../../../utils/formatUtils";
 import { getItem } from "../../../storage";

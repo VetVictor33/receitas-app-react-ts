@@ -6,8 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Recipe } from '../../../types/Recipes';
-import AdonisjsApi from '../../../services/api/AdonisjsApi';
+import { Recipe } from '../../../@types/Recipes';
+import AdonisjsApi from '../../../services/api/api';
 import useUser from '../../../hook/useUser';
 import { Alert } from '@mui/material';
 

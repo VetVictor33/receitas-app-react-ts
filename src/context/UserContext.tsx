@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, createContext, useState } from 'react';
-import { User, UserContextType } from '../types/User';
-import { Recipe } from '../types/Recipes';
+import { User, UserContextType } from '../@types/User';
+import { Recipe } from '../@types/Recipes';
 
 // @ts-ignore
 export const UserContext = createContext<UserContextType>();

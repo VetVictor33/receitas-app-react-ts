@@ -4,9 +4,9 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import useUser from '../../../hook/useUser';
-import AdonisjsApi from '../../../services/api/AdonisjsApi';
-import { Recipe } from '../../../types/Recipes';
-import { Comment } from '../../../types/Comments';
+import AdonisjsApi from '../../../services/api/api';
+import { Recipe } from '../../../@types/Recipes';
+import { Comment } from '../../../@types/Comments';
 import ConfirmationDialog from '../../ConfirmationDialog';
 import { IconButton } from '@mui/material';
 

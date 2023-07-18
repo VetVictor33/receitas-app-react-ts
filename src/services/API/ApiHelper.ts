@@ -1,5 +1,5 @@
-import { RecipePaginationFetchMethod } from "../../types/SwitchTypes";
-import AdonisjsApi from "./AdonisjsApi";
+import { RecipePaginationFetchMethod } from "../../@types/SwitchTypes";
+import AdonisjsApi from "./api";
 
 export default abstract class ApiHelper {
   public static async fetchPaginatedRecipes(method: RecipePaginationFetchMethod, currentPage: number) {

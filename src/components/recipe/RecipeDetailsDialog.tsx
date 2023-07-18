@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { TransitionProps } from '@mui/material/transitions';
 import { useState, forwardRef } from 'react';
-import { Recipe } from '../../types/Recipes';
+import { Recipe } from '../../@types/Recipes';
 import { getUrl } from '../../utils/formatUtils';
 import Comment from './comment/Comment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
