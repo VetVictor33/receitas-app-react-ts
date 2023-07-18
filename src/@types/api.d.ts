@@ -3,7 +3,7 @@ import { Comment } from "./Comments";
 import { Recipe } from "./Recipes";
 import { UserLogin, UserSignup } from "./User";
 
-declare module "api" {
+declare module "AdonisjsApi" {
   export default abstract class AdonisjsApi {
     public static signupAttempt(data: UserSignup): Promise<void>
     public static loginAttempt(dataInput: UserLogin): Promise<IloginAttempt>
