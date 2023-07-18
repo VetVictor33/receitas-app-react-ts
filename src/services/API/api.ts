@@ -21,7 +21,7 @@ export default abstract class AdonisjsApi {
         const response = await axios.post('/users/logout', undefined, { headers })
         console.log(response)
     }
-
+        
     public static async getAllRecipes() {
         const headers = this.getHeaders(getItem('token')!)
         const { data }: { data: IpaginatedResonse } = await axios.get('/recipes', { headers })
