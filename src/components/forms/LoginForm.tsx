@@ -10,7 +10,8 @@ import { setItem } from '../../storage';
 import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
 import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
-import { formStyle, parentFormStyle } from '../../styles/formStyles'
+import { formStyle, parentFormStyle } from '../../style/formStyles'
+
 
 export default function LoginForm() {
   const navigateTo = useNavigate()
@@ -103,7 +104,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div style={{ ...parentFormStyle }}>
+    //@ts-ignore
+    <div style={parentFormStyle}>
       <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
         sx={{ ...formStyle }}>
 
@@ -126,6 +128,6 @@ export default function LoginForm() {
           <a href="/sign-up">Ainda não tem cadastro?</a>
         </Stack>
       </Box>
-    </div>
+    </div >
   )
 }

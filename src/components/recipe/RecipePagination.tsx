@@ -69,7 +69,7 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
         }
       </Grid >
       {totalPages > 1 &&
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ margin: '20px 0' }}>
           <Pagination count={totalPages} page={currentRecipesPage} sx={{ margin: 'auto' }}
             //@ts-ignore
             color="secondary" onChange={handlePageChange} />

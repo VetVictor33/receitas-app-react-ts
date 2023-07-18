@@ -12,7 +12,7 @@ import { AlertStyle, SubmitButtonStyle } from '../../../types/FormTypes';
 
 
 export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | undefined }) {
-  const { recipes, setRecipes } = useUser()!
+  const { recipes, setRecipes, currentRecipesPage, setCurrentRecipesPage } = useUser()!
   const editing = incomeRecipe ? true : false;
 
   const [title, setTitle] = useState<string>('')
@@ -133,6 +133,12 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       } else {
         setFeedbackMessage('Receita adicionada com sucesso!')
         localRecipes = [newRecipe, ...recipes]
+        if (localRecipes.length > 6) {
+          localRecipes.pop()
+          if (currentRecipesPage <= 1) {
+            setCurrentRecipesPage(1)
+          }
+        }
       }
       setRecipes(localRecipes)
       cleanForm()

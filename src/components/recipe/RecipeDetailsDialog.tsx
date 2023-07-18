@@ -86,7 +86,7 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
               <IconButton aria-label="add to favorites"
                 onClick={handleFavorite}
               >
-                <StarIcon sx={recipe.metrics.favorited && { color: "#ffbe26" }} style={{ fontSize: '2.5rem' }} />
+                <StarIcon sx={recipe.metrics.favorited ? { color: "#ffbe26", fontSize: '2.5rem' } : { color: "#000", fontSize: '2rem' }} />
                 <Typography position={'absolute'} color={'white'} fontSize={'1rem'}>
                   {recipe.metrics.favorites.totalFavorites}
                 </Typography>
@@ -94,7 +94,7 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
               <IconButton aria-label="like"
                 onClick={handleLike}
               >
-                <FavoriteIcon sx={recipe.metrics.liked && { color: "#ff0505" }} style={{ fontSize: '2rem' }} />
+                <FavoriteIcon sx={recipe.metrics.liked ? { color: "#ff0505", fontSize: '2.5rem' } : { color: "#000", fontSize: '1.6rem' }} />
                 <Typography position={'absolute'} color={'white'} fontSize={'1rem'}>
                   {recipe.metrics.likes.totalLikes}
                 </Typography>

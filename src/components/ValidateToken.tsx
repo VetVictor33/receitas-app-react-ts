@@ -1,16 +1,24 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { getItem } from "../storage";
+import { Outlet, useNavigate } from "react-router-dom";
+import { destroyStorage, getItem } from "../storage";
 import Header from "./header/Header";
 import Footer from "./Footer";
+import { useEffect } from "react";
 
 export default function ValidateToken({ route }: { route: string }) {
-    const token = getItem('token');
-    return token ?
+    const navitateTo = useNavigate()
+    useEffect(() => {
+        try {
+            getItem('token');
+        } catch (error) {
+            destroyStorage()
+            navitateTo(route)
+        }
+    })
+    return (
         <>
             <Header />
             <Outlet />
             <Footer />
         </>
-        :
-        <Navigate to={route} />
+    )
 }

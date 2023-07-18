@@ -34,7 +34,7 @@ function Media() {
 export default function Loadagin() {
   return (
     <div>
-      <Media loading />
+      <Media />
     </div>
   );
 }

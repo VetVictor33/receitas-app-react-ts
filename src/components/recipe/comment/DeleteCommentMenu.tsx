@@ -8,6 +8,7 @@ import Api from '../../../services/API/Api';
 import { Recipe } from '../../../types/Recipes';
 import { Comment } from '../../../types/Comments';
 import ConfirmationDialog from '../../ConfirmationDialog';
+import { IconButton } from '@mui/material';
 
 
 export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: Recipe['id'], commentId: Comment['id'] }) {
@@ -56,7 +57,9 @@ export default function DeleteCommentMenu({ recipeId, commentId }: { recipeId: R
 
   return (
     <div>
-      <MoreVertIcon onClick={handleClick} />
+      <IconButton onClick={handleClick}>
+        <MoreVertIcon />
+      </IconButton>
       <Menu
         id="fade-menu"
         MenuListProps={{

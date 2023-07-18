@@ -1,25 +1,16 @@
 import { Box, Button, Input, InputLabel } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
 import Stack from '@mui/material/Stack';
-import { ChangeEvent, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { setItem } from '../../storage';
-import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
-import useUser from '../../hook/useUser';
-import Api from '../../services/API/Api';
-import { verifyEmailFormat } from '../../utils/formatUtils';
-import { formStyle, parentFormStyle } from './LoginForm';
 import Typography from '@mui/material/Typography';
+import { ChangeEvent, useRef, useState } from 'react';
+import Api from '../../services/API/Api';
+import { formStyle, parentFormStyle } from '../../style/formStyles';
+import { AlertStyle, SubmitButtonStyle } from '../../types/FormTypes';
+import { verifyEmailFormat } from '../../utils/formatUtils';
 
 
 export default function LoginForm() {
-  const navigateTo = useNavigate()
-  const { setUser } = useUser()
-
-  const sigup = true
-
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -110,9 +101,12 @@ export default function LoginForm() {
       cleanForm()
     } catch (error) {
       hasAnyFeedbackRef.current = true
+      //@ts-ignore
       if (error.response.data.errors) {
+        //@ts-ignore
         setFeedbackMessage(error.response.data.errors[0].message)
       } else {
+        //@ts-ignore
         setFeedbackMessage(error.response.data.message)
       }
       setAlertStyle('error')
@@ -121,11 +115,12 @@ export default function LoginForm() {
   }
 
   return (
-    <div style={parentFormStyle}>
+    //@ts-ignore
+    <div style={{ ...parentFormStyle }}>
       <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
-        style={formStyle}>
+        sx={{ ...formStyle }}>
         <Typography variant='h5' color={'#000'}>Receitas App</Typography>
-        <Typography variant='h7' color={'#000'}>Signup</Typography>
+        <Typography variant='h6' color={'#000'}>Signup</Typography>
         <FormControl sx={{ width: '90%' }}>
           <InputLabel htmlFor="my-input">Username</InputLabel>
           <Input error={usernameError} name="username" value={username} aria-describedby="my-helper-text" onChange={handleInputChange} />
@@ -141,10 +136,7 @@ export default function LoginForm() {
         <Stack sx={{ width: '100%' }} spacing={2}>
           {hasAnyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
           <Button color={submitButtonStyle} type='submit'>
-            {sigup ?
-              'Inscrecer-se' :
-              'Entrar'
-            }
+            Inscrever-se
           </Button>
           <a href="/">Já tem cadastro?</a>
         </Stack>

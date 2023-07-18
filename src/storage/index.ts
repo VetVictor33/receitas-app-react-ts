@@ -1,7 +1,5 @@
 export const getItem = (key: string) => {
-  const response = localStorage.getItem(key)
-  if (!response) throw new Error('')
-  return response
+  return localStorage.getItem(key)
 }
 
 export const setItem = (key: string, value: string) => {

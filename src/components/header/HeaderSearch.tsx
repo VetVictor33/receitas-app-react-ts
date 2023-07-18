@@ -1,13 +1,13 @@
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { alpha, styled } from '@mui/material/styles';
-import { useEffect, useRef, useState } from 'react';
-import useUser from '../../hook/useUser';
-import ApiHelper from '../../services/API/apiHelper';
-import { Recipe } from '../../types/Recipes';
-import { normalizeString } from '../../utils/formatUtils';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useUser from '../../hook/useUser';
+import ApiHelper from '../../services/API/ApiHelper';
+import { Recipe } from '../../types/Recipes';
 import { RecipePaginationFetchMethod } from '../../types/SwitchTypes';
+import { normalizeString } from '../../utils/formatUtils';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
