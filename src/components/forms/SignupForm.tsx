@@ -8,6 +8,7 @@ import AdonisjsApi from '../../services/adonisjs/adonisjs';
 import { formStyle, parentFormStyle } from '../../style/formStyles';
 import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
+import { Link } from 'react-router-dom';
 
 
 export default function LoginForm() {
@@ -138,7 +139,7 @@ export default function LoginForm() {
           <Button color={submitButtonStyle} type='submit'>
             Inscrever-se
           </Button>
-          <a href="/">Já tem cadastro?</a>
+          <Link to={'/'}>Já tem cadastro?</Link>
         </Stack>
       </Box>
     </div >

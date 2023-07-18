@@ -3,7 +3,7 @@ import Alert from '@mui/material/Alert';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
 import { ChangeEvent, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useUser from '../../hook/useUser';
 import AdonisjsApi from '../../services/adonisjs/adonisjs';
 import { setItem } from '../../storage';
@@ -125,7 +125,7 @@ export default function LoginForm() {
           <Button color={submitButtonStyle} type='submit'>
             Entrar
           </Button>
-          <a href="/sign-up">Ainda não tem cadastro?</a>
+          <Link to={'/sign-up'}>Ainda não tem cadastro?</Link>
         </Stack>
       </Box>
     </div >
