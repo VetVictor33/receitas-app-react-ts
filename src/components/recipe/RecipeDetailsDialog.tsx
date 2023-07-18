@@ -1,7 +1,8 @@
+import AddCommentIcon from '@mui/icons-material/AddComment';
 import CloseIcon from '@mui/icons-material/Close';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
-import { Card, CardActions, CardContent, CardMedia } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Grid } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Dialog from '@mui/material/Dialog';
 import IconButton from '@mui/material/IconButton';
@@ -9,12 +10,9 @@ import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { TransitionProps } from '@mui/material/transitions';
-import { useState, forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { Recipe } from '../../@types/Recipes';
-import { getUrl } from '../../utils/formatUtils';
 import Comment from './comment/Comment';
-import AddCommentIcon from '@mui/icons-material/AddComment';
-import { Grid } from '@mui/material'
 
 import NewCommentDialog from './comment/NewCommentDialog';
 
@@ -41,7 +39,7 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
   const handleCloseNewCommentDialog = () => {
     setOpenNewCommentDialog(false);
   };
-  const imageUrl = getUrl(recipe.imageUrl)
+  const imageUrl = recipe.imageUrl
 
   return (
     <Dialog

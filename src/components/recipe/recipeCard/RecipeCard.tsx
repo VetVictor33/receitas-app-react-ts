@@ -112,7 +112,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
         component="img"
         height="194"
         width="354"
-        src={`${import.meta.env.VITE_BASE_URL}${recipe.imageUrl}`}
+        src={recipe.imageUrl}
         alt={recipe.title}
       />
       <CardContent>

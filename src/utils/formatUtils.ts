@@ -5,7 +5,7 @@ export function formatDate(date: Date) {
 }
 
 export function getUrl(imageUrl: string) {
-  return `${import.meta.env.VITE_BASE_URL}${imageUrl}`
+  return imageUrl
 }
 
 export function getFirstLetter(string: string) {
