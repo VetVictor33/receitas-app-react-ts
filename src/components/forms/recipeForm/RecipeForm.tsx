@@ -187,7 +187,7 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
       setIngredients(incomeRecipe.ingredients.map(item => item.name))
       setDescription(incomeRecipe.description)
       // @ts-ignore
-      previewImage.current.src = `${import.meta.env.VITE_BASE_URL}${incomeRecipe.imageUrl}`
+      previewImage.current.src = incomeRecipe.imageUrl
       // @ts-ignore
       previewImage.current.style.display = 'block';
     }
