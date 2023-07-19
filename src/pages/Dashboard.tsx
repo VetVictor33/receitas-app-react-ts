@@ -1,9 +1,10 @@
+import { RecipePaginationFetchMethod } from '../@types/SwitchTypes'
 import RecipePagination from '../components/recipe/RecipePagination'
 
-export default function Dashboard() {
+export default function Dashboard({ method }: { method: RecipePaginationFetchMethod }) {
   return (
     <main>
-      <RecipePagination method={'dashboard'}/>
+      <RecipePagination method={method} />
     </main>
   )
 }

@@ -9,16 +9,19 @@ import { formStyle, parentFormStyle } from '../../style/formStyles';
 import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { Link } from 'react-router-dom';
+import { logInPath } from '../../utils/pathnameUtils';
 
 
-export default function LoginForm() {
+export default function SignUpForm() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
   const [usernameError, setUsernameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
+  const [passwordConfirmationError, setPasswordConfirmationError] = useState(false)
 
   const hasAnyFeedbackRef = useRef(false)
   const [feedBackMessage, setFeedbackMessage] = useState<string>('')
@@ -44,6 +47,11 @@ export default function LoginForm() {
       case 'password':
         setPassword(value)
         setPasswordError(false)
+        setPasswordConfirmationError(false)
+        break
+      case 'passwordConfirmation':
+        setPasswordConfirmation(value)
+        setPasswordConfirmationError(false)
         break
     }
 
@@ -56,6 +64,7 @@ export default function LoginForm() {
     setUsername('')
     setEmail('')
     setPassword('')
+    setPasswordConfirmation('')
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,11 +89,20 @@ export default function LoginForm() {
       hasAnyFeedbackRef.current = true
     }
 
+    if (!passwordConfirmation || (passwordConfirmation !== password)) {
+      setPasswordConfirmationError(true)
+      setPasswordError(true)
+      hasAnyFeedbackRef.current = true
+    }
+
     if (hasAnyFeedbackRef.current) {
       setSubmitButtonStyle('error')
       if (!verifyEmailFormat(email)) {
         setFeedbackMessage('Formado de email inválido')
-      } else {
+      } else if (passwordConfirmationError) {
+        setFeedbackMessage('Senhas não são idênticas')
+      }
+      else {
         setFeedbackMessage('Preencha todos os campos')
       }
       setAlertStyle('warning')
@@ -118,28 +136,35 @@ export default function LoginForm() {
   return (
     //@ts-ignore
     <div style={{ ...parentFormStyle }}>
-      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
+      <Box component="form" noValidate autoComplete="on" onSubmit={handleSubmit}
         sx={{ ...formStyle }}>
         <Typography variant='h5' color={'#000'}>Receitas App</Typography>
-        <Typography variant='h6' color={'#000'}>Signup</Typography>
+        <Typography variant='h6' color={'#000'}>Sign Up</Typography>
         <FormControl sx={{ width: '90%' }}>
-          <InputLabel htmlFor="my-input">Username</InputLabel>
-          <Input error={usernameError} name="username" value={username} aria-describedby="my-helper-text" onChange={handleInputChange} />
+          <InputLabel htmlFor="username">Username</InputLabel>
+          <Input id='username' error={usernameError} name="username" value={username} onChange={handleInputChange} autoComplete='on' />
         </FormControl>
         <FormControl sx={{ width: '90%' }}>
-          <InputLabel htmlFor="my-input">Email</InputLabel>
-          <Input error={emailError} name="email" type={email} value={email} aria-describedby="my-helper-text" onChange={handleInputChange} />
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <Input id='email' error={emailError} name="email" type={email} value={email} onChange={handleInputChange} autoComplete='on' />
         </FormControl>
         <FormControl sx={{ width: '90%' }}>
-          <InputLabel htmlFor="my-input">Senha</InputLabel>
-          <Input error={passwordError} name="password" type='password' value={password} aria-describedby="my-helper-text" onChange={handleInputChange} />
+          <InputLabel htmlFor="password">Senha</InputLabel>
+          <Input id='password' error={passwordError} name="password" type='password'
+            value={password} onChange={handleInputChange} autoComplete='on' />
+        </FormControl>
+        <FormControl sx={{ width: '90%' }}>
+          <InputLabel htmlFor="passwordConfirmation">Confirmar senha</InputLabel>
+          <Input id='passwordConfirmation' error={passwordConfirmationError}
+            name="passwordConfirmation" type='password' value={passwordConfirmation}
+            onChange={handleInputChange} autoComplete='on' />
         </FormControl>
         <Stack sx={{ width: '100%' }} spacing={2}>
           {hasAnyFeedbackRef.current && <Alert severity={alertStyle}>{feedBackMessage}</Alert>}
           <Button color={submitButtonStyle} type='submit'>
             Inscrever-se
           </Button>
-          <Link to={'/'}>Já tem cadastro?</Link>
+          <Link to={logInPath}>Já tem cadastro?</Link>
         </Stack>
       </Box>
     </div >

@@ -9,7 +9,7 @@ import useUser from '../hook/useUser';
 export default function ConfirmationDialog({
   openConfirmationDialog, handleCloseConfirmationDialog, confirm
 }: { openConfirmationDialog: boolean, handleCloseConfirmationDialog: () => void, confirm: () => void }) {
-  const { logginOut } = useUser()
+  const { loginOut: logginOut } = useUser()
   const handleConfirmation = () => {
     confirm()
   }

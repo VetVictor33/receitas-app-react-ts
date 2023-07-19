@@ -22,7 +22,7 @@ import { formatDate, getFirstLetter } from '../../../utils/formatUtils';
 type metric = 'like' | 'favorite'
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const { recipes, setRecipes } = useUser()
+  const { recipes, setRecipes, isLogged } = useUser()
   const [lockInteractions, setLockInteractions] = useState(false)
   const [openRecipeDetailsDialog, setOpenRecipeDetailsDialog] = useState(false);
 
@@ -39,20 +39,19 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
 
 
   const handleFavorite = async () => {
-    if (lockInteractions) return
+    if (lockInteractions || !isLogged()) return
     setLockInteractions(true)
     try {
       await AdonisjsApi.favoriteRecipe(recipe.id)
       handleMetricChange('favorite')
     } catch (error) {
-      console.log(error)
     } finally {
       setLockInteractions(false)
     }
   }
 
   const handleLike = async () => {
-    if (lockInteractions) return
+    if (lockInteractions || !isLogged()) return
     setLockInteractions(true)
     try {
       await AdonisjsApi.likeRecipe(recipe.id)

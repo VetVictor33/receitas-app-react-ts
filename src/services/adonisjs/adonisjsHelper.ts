@@ -14,6 +14,9 @@ export default abstract class ApiHelper {
       case 'favorites':
         data = await AdonisjsApi.getUserFavoriteRecipes(currentPage, 6)
         break
+      case 'notLogged':
+        data = await AdonisjsApi.getNotLoggedAllRecipes(currentPage, 6)
+        break
     }
     const { allRecipes, totalPages } = data
     return { allRecipes, totalPages }

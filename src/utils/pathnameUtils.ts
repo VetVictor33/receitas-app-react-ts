@@ -1,0 +1,6 @@
+export const notLoggedDashboardPath = '/'
+export const logInPath = '/login'
+export const signUpPath = '/sign-up'
+export const generalDashboardPath = '/dashboard'
+export const usersDashboardPath = '/dashboard/minhas-receitas'
+export const favoritesDashboardPath = '/dashboard/receitas-favoritas'

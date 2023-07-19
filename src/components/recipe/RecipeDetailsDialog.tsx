@@ -15,6 +15,7 @@ import { Recipe } from '../../@types/Recipes';
 import Comment from './comment/Comment';
 
 import NewCommentDialog from './comment/NewCommentDialog';
+import useUser from '../../hook/useUser';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -30,9 +31,11 @@ export default function RecipeDetailsDialog({ recipe, handleCloseRecipeDetailsDi
     recipe: Recipe, handleCloseRecipeDetailsDialog: () => void, openRecipeDetailsDialog: boolean
     handleFavorite: () => Promise<void>, handleLike: () => Promise<void>
   }) {
+  const { isLogged } = useUser()
   const [openNewCommentDialog, setOpenNewCommentDialog] = useState(false);
 
   const handleClickOpenNewCommentDialog = () => {
+    if (!isLogged()) return
     setOpenNewCommentDialog(true);
   };
 

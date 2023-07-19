@@ -197,29 +197,29 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
     <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}
       style={{ display: 'fle', flexDirection: 'column', gap: '10px' }}
     >
-      <FormControl fullWidth>
-        <InputLabel htmlFor="my-input">Nome da receita</InputLabel>
-        <Input error={titleError} name="title" value={title} onChange={handleInputChange}
+      <FormControl fullWidth sx={{ margin: '1rem 0' }}>
+        <InputLabel htmlFor="title" >Nome da receita</InputLabel>
+        <Input id='title' error={titleError} name="title" value={title} onChange={handleInputChange}
           aria-describedby="my-helper-text" />
         <FormHelperText id="my-helper-text">{title ? '' : `${HINT_RECIPE_NAME}`}</FormHelperText>
       </FormControl>
-      <FormControl fullWidth>
-        <InputLabel htmlFor="my-input">Categoria</InputLabel>
-        <Input error={categoryNameError} name="categoryName" value={categoryName} onChange={handleInputChange}
+      <FormControl fullWidth sx={{ margin: '1rem 0' }}>
+        <InputLabel htmlFor="categoryName">Categoria</InputLabel>
+        <Input id='categoryName' error={categoryNameError} name="categoryName" value={categoryName} onChange={handleInputChange}
           aria-describedby="my-helper-text" />
         <FormHelperText id="my-helper-text">{categoryName ? '' : `${HINT_RECIPE_CATEGORY}`}</FormHelperText>
       </FormControl>
-      <FormControl fullWidth>
-        <InputLabel htmlFor="my-input">Ingredientes</InputLabel>
-        <Input error={ingredientsError} name="ingredients" value={ingredients} onChange={handleInputChange}
+      <FormControl fullWidth sx={{ margin: '1rem 0' }}>
+        <InputLabel htmlFor="ingredients">Ingredientes</InputLabel>
+        <Input id='ingredients' error={ingredientsError} name="ingredients" value={ingredients} onChange={handleInputChange}
           aria-describedby="my-helper-text"
           fullWidth
         />
         <FormHelperText id="my-helper-text">{ingredients ? '' : `${HINT_RECIPE_INGREDIENTS}`}</FormHelperText>
-      </FormControl>
-      <FormControl fullWidth>
-        <InputLabel htmlFor="my-input">Instruções</InputLabel>
-        <Input error={descriptionError} name="description" value={description} onChange={handleInputChange}
+      </FormControl >
+      <FormControl fullWidth sx={{ margin: '1rem 0' }}>
+        <InputLabel htmlFor="description">Instruções</InputLabel>
+        <Input id='description' error={descriptionError} name="description" value={description} onChange={handleInputChange}
           multiline
           rows={4}
           aria-describedby="my-helper-text"
@@ -228,8 +228,8 @@ export default function RecipeForm({ incomeRecipe }: { incomeRecipe: Recipe | un
         <FormHelperText id="my-helper-text">{description ? '' : `${HINT_RECIPE_DESCRIPTION}`}</FormHelperText>
       </FormControl>
 
-      <FormControl fullWidth>
-        <Input error={imageError} type='file' name="image" onChange={handleInputChange} />
+      <FormControl fullWidth sx={{ margin: '1rem 0' }}>
+        <Input id='image' error={imageError} type='file' name="image" onChange={handleInputChange} />
         {/* @ts-ignore */}
         <img ref={previewImage} id="previewImage" src="#" alt="Imagem do arquivo" style={{ display: 'none', maxWidth: '100%' }} />
       </FormControl>

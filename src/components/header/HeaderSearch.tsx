@@ -8,6 +8,7 @@ import ApiHelper from '../../services/adonisjs/adonisjsHelper';
 import { Recipe } from '../../@types/Recipes';
 import { RecipePaginationFetchMethod } from '../../@types/SwitchTypes';
 import { normalizeString } from '../../utils/formatUtils';
+import { generalDashboardPath, usersDashboardPath } from '../../utils/pathnameUtils';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,7 +64,7 @@ export default function HeaderSearch() {
 
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    navigateTo('/dashboard/home')
+    navigateTo(generalDashboardPath)
     const searchString = e.target.value
     setInputValue(searchString)
     if (!searchString) {
@@ -91,10 +92,10 @@ export default function HeaderSearch() {
       }
     }
 
-    if (location.pathname !== '/dashboard/home') {
+    if (location.pathname !== generalDashboardPath) {
       if (currentRecipesPage !== 1) {
         setCurrentRecipesPage(1)
-        if (location.pathname === '/dashboard/minhas-receitas') {
+        if (location.pathname === usersDashboardPath) {
           fetchRecipes('users', 1)
         } else {
           fetchRecipes('favorites', 1)

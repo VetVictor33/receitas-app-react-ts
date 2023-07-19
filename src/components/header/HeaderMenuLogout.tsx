@@ -16,13 +16,13 @@ export default function HeaderMenuLogout() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigateTo = useNavigate()
   const [lockButton, setLockButton] = useState(false)
-  const { setLogginOut } = useUser()
+  const { setLoginOut } = useUser()
 
   const [openConfirmationDialog, setOpenConfirmationDialog] = useState(false);
 
   const handleClickOpenConfirmationDialog = () => {
     setOpenConfirmationDialog(true);
-    setLogginOut(true)
+    setLoginOut(true)
     handleMenuClose()
   };
 
@@ -47,7 +47,7 @@ export default function HeaderMenuLogout() {
     } finally {
       destroyStorage()
       navigateTo('/')
-      setLogginOut(false)
+      setLoginOut(false)
     }
   }
 
@@ -71,13 +71,16 @@ export default function HeaderMenuLogout() {
         onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
-        <Typography align='center'>
-          {username}
-        </Typography>
-        <IconButton
-          onClick={handleClickOpenConfirmationDialog}>
-          <MenuItem>Logout</MenuItem>
-        </IconButton>
+        <nav
+          style={{ padding: '0 10px', textAlign: 'center' }}>
+          <Typography align='center'>
+            {username}
+          </Typography>
+          <IconButton
+            onClick={handleClickOpenConfirmationDialog}>
+            <MenuItem>Logout</MenuItem>
+          </IconButton>
+        </nav>
       </Menu>
       <ConfirmationDialog confirm={handleLogout} handleCloseConfirmationDialog={handleCloseConfirmationDialog} openConfirmationDialog={openConfirmationDialog} />
     </div>

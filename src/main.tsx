@@ -2,16 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Root from './Root.tsx';
+import ValidateToken from './components/ValidateToken.tsx';
+import UserProvider from './context/UserContext.tsx';
 import './index.css';
 import Dashboard from './pages/Dashboard.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
-import Login from './pages/Login.tsx';
-import Signup from './pages/Signup.tsx';
-import UserFavoriteRecipes from './pages/UserFavoriteRecipes.tsx';
-import ValidateToken from './components/ValidateToken.tsx';
-import UserProvider from './context/UserContext.tsx';
-import UserRecipes from './pages/UserRecipes.tsx';
+import LoginSignUpPage from './pages/LoginSignUpPage.tsx';
 import PageNotFound from './pages/PageNotFound.tsx';
+import { favoritesDashboardPath, generalDashboardPath, logInPath, notLoggedDashboardPath, signUpPath, usersDashboardPath } from './utils/pathnameUtils.ts';
 
 const router = createBrowserRouter([
   {
@@ -19,27 +17,31 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
-        element: <Login />
+        path: notLoggedDashboardPath,
+        element: <Dashboard method='notLogged' />
       },
       {
-        path: '/sign-up',
-        element: <Signup />
+        path: logInPath,
+        element: <LoginSignUpPage form='login' />
       },
       {
-        element: <ValidateToken route='/' />,
+        path: signUpPath,
+        element: <LoginSignUpPage form='signUp' />
+      },
+      {
+        element: <ValidateToken route={notLoggedDashboardPath} />,
         children: [
           {
-            path: '/dashboard/home',
-            element: < Dashboard />
+            path: generalDashboardPath,
+            element: <Dashboard method='dashboard' />
           },
           {
-            path: '/dashboard/minhas-receitas',
-            element: <UserRecipes />
+            path: usersDashboardPath,
+            element: <Dashboard method='users' />
           },
           {
-            path: '/dashboard/receitas-favoritas',
-            element: <UserFavoriteRecipes />
+            path: favoritesDashboardPath,
+            element: <Dashboard method='favorites' />
           }
         ]
       },

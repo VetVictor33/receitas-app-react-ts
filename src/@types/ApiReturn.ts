@@ -13,7 +13,7 @@ export interface IloginAttempt {
   }
 }
 
-export interface IpaginatedResonse {
+export interface IpaginatedResponse {
   allRecipes: Recipe[]
   totalPages: number
 }

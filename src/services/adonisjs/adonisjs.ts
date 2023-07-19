@@ -1,5 +1,5 @@
 import { getItem } from "../../storage";
-import { IloginAttempt, IpaginatedResonse } from "../../@types/ApiReturn";
+import { IloginAttempt, IpaginatedResponse } from "../../@types/ApiReturn";
 import { Comment } from "../../@types/Comments";
 import { Recipe } from "../../@types/Recipes";
 import { UserLogin, UserSignup } from "../../@types/User";
@@ -7,6 +7,12 @@ import axios from "../axios/axios";
 
 
 export default abstract class AdonisjsApi {
+
+    public static async getNotLoggedAllRecipes(pageNumber: number, recipePerPage: number) {
+        const { data }: { data: IpaginatedResponse } = await axios.post('/not-logged-dashboard', { pageNumber, recipePerPage })
+        return data
+    }
+
     public static async signupAttempt(data: UserSignup): Promise<void> {
         await axios.post('/users/sign-up', { ...data })
     }
@@ -18,32 +24,31 @@ export default abstract class AdonisjsApi {
 
     public static async logOut() {
         const headers = this.getHeaders(getItem('token')!)
-        const response = await axios.post('/users/logout', undefined, { headers })
-        console.log(response)
+        await axios.post('/users/logout', undefined, { headers })
     }
-        
+
     public static async getAllRecipes() {
         const headers = this.getHeaders(getItem('token')!)
-        const { data }: { data: IpaginatedResonse } = await axios.get('/recipes', { headers })
+        const { data }: { data: IpaginatedResponse } = await axios.get('/recipes', { headers })
         return data
     }
 
     public static async paginatedRecipes(pageNumber: number, recipePerPage: number) {
         const headers = this.getHeaders(getItem('token')!)
-        const { data }: { data: IpaginatedResonse } = await axios.post('/paginate', { pageNumber, recipePerPage }, { headers })
+        const { data }: { data: IpaginatedResponse } = await axios.post('/paginate', { pageNumber, recipePerPage }, { headers })
         return data
     }
 
     public static async getUserRecipes(pageNumber: number, recipePerPage: number) {
         const headers = this.getHeaders(
             getItem('token')!)
-        const { data }: { data: IpaginatedResonse } = await axios.post('/user-recipes', { pageNumber, recipePerPage }, { headers })
+        const { data }: { data: IpaginatedResponse } = await axios.post('/user-recipes', { pageNumber, recipePerPage }, { headers })
         return data
     }
 
     public static async getUserFavoriteRecipes(pageNumber: number, recipePerPage: number) {
         const headers = this.getHeaders(getItem('token')!)
-        const { data }: { data: IpaginatedResonse } = await axios.post('/user-favorite-recipes', { pageNumber, recipePerPage }, { headers })
+        const { data }: { data: IpaginatedResponse } = await axios.post('/user-favorite-recipes', { pageNumber, recipePerPage }, { headers })
         return data
     }
 

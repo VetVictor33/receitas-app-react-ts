@@ -11,6 +11,7 @@ import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { formStyle, parentFormStyle } from '../../style/formStyles'
+import { generalDashboardPath, signUpPath } from '../../utils/pathnameUtils';
 
 
 export default function LoginForm() {
@@ -87,7 +88,7 @@ export default function LoginForm() {
       setItem('token', token.token)
       setItem('username', user.username)
       setUser(user)
-      navigateTo('/dashboard/home')
+      navigateTo(generalDashboardPath)
     } catch (error) {
       hasAnyFeedbackRef.current = true
       //@ts-ignore
@@ -112,12 +113,12 @@ export default function LoginForm() {
         <Typography variant='h5' color={'#000'}>Receitas App</Typography>
         <Typography variant='h6' color={'#000'}>Login</Typography>
         <FormControl sx={{ width: '90%' }}>
-          <InputLabel htmlFor="my-input">Email</InputLabel>
-          <Input error={emailError} name="email" type='email' value={email} aria-describedby="my-helper-text" onChange={handleInputChange} />
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <Input id='email' error={emailError} name="email" type='email' value={email} aria-describedby="my-helper-text" onChange={handleInputChange} />
         </FormControl>
         <FormControl sx={{ width: '90%' }}>
-          <InputLabel htmlFor="my-input">Password</InputLabel>
-          <Input error={passwordError} name="password" type='password' value={password} aria-describedby="my-helper-text" onChange={handleInputChange} />
+          <InputLabel htmlFor="password">Senha</InputLabel>
+          <Input id='password' error={passwordError} name="password" type='password' value={password} aria-describedby="my-helper-text" onChange={handleInputChange} />
         </FormControl>
 
         <Stack sx={{ width: '100%' }} spacing={2}>
@@ -125,7 +126,7 @@ export default function LoginForm() {
           <Button color={submitButtonStyle} type='submit'>
             Entrar
           </Button>
-          <Link to={'/sign-up'}>Ainda não tem cadastro?</Link>
+          <Link to={signUpPath}>Ainda não tem cadastro?</Link>
         </Stack>
       </Box>
     </div >

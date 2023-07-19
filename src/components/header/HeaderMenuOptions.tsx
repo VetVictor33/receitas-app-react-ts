@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import RecipeModal from './RecipeModal';
+import { favoritesDashboardPath, generalDashboardPath, usersDashboardPath } from '../../utils/pathnameUtils';
 
 
 export default function HeaderMenuOptions() {
@@ -43,17 +44,17 @@ export default function HeaderMenuOptions() {
         onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
-        <NavLink to={'/dashboard/home'} onClick={handleMenuClose}>
+        <NavLink to={generalDashboardPath} onClick={handleMenuClose}>
           <MenuItem>
             Dashboard
           </MenuItem>
         </NavLink>
-        <NavLink to={'/dashboard/minhas-receitas'} onClick={handleMenuClose}>
+        <NavLink to={usersDashboardPath} onClick={handleMenuClose}>
           <MenuItem>
             Minhas receitas
           </MenuItem>
         </NavLink>
-        <NavLink to={'/dashboard/receitas-favoritas'} onClick={handleMenuClose}>
+        <NavLink to={favoritesDashboardPath} onClick={handleMenuClose}>
           <MenuItem>
             Receitas favoritas
           </MenuItem>
