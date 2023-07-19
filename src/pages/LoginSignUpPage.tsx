@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { generalDashboardPath } from "../utils/pathnameUtils"
 import LoginForm from "../components/forms/LoginForm"
 //@ts-ignore
-import SignUpForm from "../components/forms/SignUpForm"
+import SignupForm from "../components/forms/SignupForm"
 
 type formsType = 'login' | 'signUp'
 
@@ -16,5 +16,5 @@ export default function LoginSignUpPage({ form }: { form: formsType }) {
   useEffect(() => {
     if (isLogged()) navigateTo(generalDashboardPath)
   })
-  return form === 'login' ? <LoginForm /> : <SignUpForm />
+  return form === 'login' ? <LoginForm /> : <SignupForm />
 }
