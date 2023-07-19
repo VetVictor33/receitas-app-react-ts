@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { logInPath } from '../../utils/pathnameUtils';
 
 
-export default function SignupForm() {
+export default function SignUpForm() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
