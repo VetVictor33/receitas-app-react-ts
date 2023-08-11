@@ -27,8 +27,8 @@ export default function RecipePagination({ method }: { method: RecipePaginationF
     setHibernating(true)
   }
 
-  //@ts-ignore
   const handlePageChange = (e: ChangeEvent<HTMLInputElement>, value: number) => {
+    if (!e) return
     if (value != currentRecipesPage) {
       setCurrentRecipesPage(value)
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })

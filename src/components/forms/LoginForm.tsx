@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { formStyle, parentFormStyle } from '../../style/formStyles'
 import { generalDashboardPath, signUpPath } from '../../utils/pathnameUtils';
+import { IErrors } from '../../@types/ApiReturn';
 
 
 export default function LoginForm() {
@@ -89,15 +90,12 @@ export default function LoginForm() {
       setItem('username', user.username)
       setUser(user)
       navigateTo(generalDashboardPath)
-    } catch (error) {
+    } catch (error: IErrors | unknown) {
       hasAnyFeedbackRef.current = true
-      //@ts-ignore
-      if (error.response.data.errors) {
-        //@ts-ignore
-        setFeedbackMessage(error.response.data.errors[0].message)
+      if ((error as IErrors).response.data.errors) {
+        setFeedbackMessage((error as IErrors).response.data.errors[0].message)
       } else {
-        //@ts-ignore
-        setFeedbackMessage(error.response.data.message)
+        setFeedbackMessage((error as IErrors).response.data.message)
       }
       setAlertStyle('error')
       setSubmitButtonStyle('error')

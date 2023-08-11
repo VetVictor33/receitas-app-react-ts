@@ -10,6 +10,7 @@ import { Recipe } from '../../../@types/Recipes';
 import AdonisjsApi from '../../../services/adonisjs/adonisjs';
 import useUser from '../../../hook/useUser';
 import { Alert } from '@mui/material';
+import { IErrors } from '../../../@types/ApiReturn';
 
 export default function NewCommentDialog({ recipeId, openNewCommentDialog, handleCloseNewCommentDialog }:
   { recipeId: Recipe['id'], openNewCommentDialog: boolean, handleCloseNewCommentDialog: () => void }) {
@@ -40,12 +41,10 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
       setAlertMessage("Comentário adicionado com sucesso")
       setContent('')
 
-    } catch (error) {
+    } catch (error: IErrors | unknown) {
       setCommentError(true)
-      //@ts-ignore
-      if (error.response.data.errors[0]) {
-        //@ts-ignore
-        setAlertMessage(error.response.data.errors[0].message)
+      if ((error as IErrors).response.data.errors[0]) {
+        setAlertMessage((error as IErrors).response.data.errors[0].message)
       } else {
         setAlertMessage('Algo deu errado')
       }
@@ -60,7 +59,7 @@ export default function NewCommentDialog({ recipeId, openNewCommentDialog, handl
   return (
     <div>
       <Dialog open={openNewCommentDialog} onClose={handleCloseNewCommentDialog} fullWidth={true}>
-        <DialogTitle>Adicionar commentário</DialogTitle>
+        <DialogTitle>Adicionar comentário</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Procure sempre ser gentil

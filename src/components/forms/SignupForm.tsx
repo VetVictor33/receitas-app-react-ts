@@ -10,6 +10,7 @@ import { AlertStyle, SubmitButtonStyle } from '../../@types/FormTypes';
 import { verifyEmailFormat } from '../../utils/formatUtils';
 import { Link } from 'react-router-dom';
 import { logInPath } from '../../utils/pathnameUtils';
+import { IErrors } from '../../@types/ApiReturn';
 
 
 export default function SignupForm() {
@@ -118,15 +119,12 @@ export default function SignupForm() {
       setAlertStyle('success')
       setSubmitButtonStyle('success')
       cleanForm()
-    } catch (error) {
+    } catch (error: IErrors | unknown) {
       hasAnyFeedbackRef.current = true
-      //@ts-ignore
-      if (error.response.data.errors) {
-        //@ts-ignore
-        setFeedbackMessage(error.response.data.errors[0].message)
+      if ((error as IErrors).response.data.errors) {
+        setFeedbackMessage((error as IErrors).response.data.errors[0].message)
       } else {
-        //@ts-ignore
-        setFeedbackMessage(error.response.data.message)
+        setFeedbackMessage((error as IErrors).response.data.message)
       }
       setAlertStyle('error')
       setSubmitButtonStyle('error')

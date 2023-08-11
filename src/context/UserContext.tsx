@@ -1,12 +1,11 @@
-import React, { PropsWithChildren, createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { User, UserContextType } from '../@types/User';
 import { Recipe } from '../@types/Recipes';
 import { getItem } from '../storage';
 
-// @ts-ignore
-export const UserContext = createContext<UserContextType>();
+export const UserContext = createContext<UserContextType>(null!);
 
-function UserProvider({ children }: PropsWithChildren<React.ReactNode>) {
+function UserProvider({ children }: { children: React.ReactNode }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [userRecipes, setUserRecipes] = useState<Recipe[]>([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);

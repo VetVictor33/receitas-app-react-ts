@@ -56,7 +56,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* @ts-ignore */}
     <UserProvider>
       <RouterProvider router={router} />
     </UserProvider>

@@ -17,3 +17,15 @@ export interface IpaginatedResponse {
   allRecipes: Recipe[]
   totalPages: number
 }
+export interface IErrors {
+  response: {
+    data: {
+      errors: IErrorsMessage[],
+      message: string
+    }
+  }
+}
+
+export interface IErrorsMessage {
+  message: string
+}

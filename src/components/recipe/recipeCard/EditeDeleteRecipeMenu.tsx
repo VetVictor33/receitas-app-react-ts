@@ -48,7 +48,6 @@ export default function EditeDeleteRecipeMenu({ recipe }: { recipe: Recipe }) {
       const localRecipes: Recipe[] = recipes.filter(item => item.id !== recipe.id)
       setRecipes(localRecipes)
     } catch (error) {
-      console.log(error)
     } finally {
       handleMenuClose()
     }
