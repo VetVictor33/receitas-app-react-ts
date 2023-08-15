@@ -9,7 +9,7 @@ export default function Footer() {
       <AppBar position="static">
         <Toolbar variant="dense" style={{ display: 'flex', flexDirection: 'column' }}>
           <Typography>Desenvolvido por - Victor Feliciano</Typography>
-          <Typography>victorjfeliciaon@gmail.com - @2023</Typography>
+          <Typography>victorjfeliciano@gmail.com - @2023</Typography>
         </Toolbar>
       </AppBar>
     </Box>
