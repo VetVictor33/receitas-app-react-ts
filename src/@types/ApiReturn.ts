@@ -1,7 +1,7 @@
 import { Recipe } from "./Recipes"
 import { User } from "./User"
 
-export interface IloginAttempt {
+export interface ILoginAttempt {
   token: {
     type: string,
     token: string,
@@ -13,7 +13,7 @@ export interface IloginAttempt {
   }
 }
 
-export interface IpaginatedResponse {
+export interface IPaginatedResponse {
   allRecipes: Recipe[]
   totalPages: number
 }

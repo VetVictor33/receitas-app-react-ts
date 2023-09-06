@@ -2,11 +2,11 @@ import { Comment } from "./Comments";
 import { Ingredient } from "./Ingredients";
 import { User } from "./User";
 
-type likes = {
+type Likes = {
   totalLikes: number
 }
 
-type favorites = {
+type Favorites = {
   totalFavorites: number
 }
 
@@ -19,8 +19,8 @@ export type Recipe = {
   userName: User['username'],
   ingredients: Ingredient[],
   metrics: {
-    likes: likes,
-    favorites: favorites,
+    likes: Likes,
+    favorites: Favorites,
     comments: Comment[],
     liked: boolean,
     favorited: boolean
